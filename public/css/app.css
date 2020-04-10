@@ -31094,6 +31094,46 @@ a.text-muted:hover {
   color: #ffffff;
 }@charset "UTF-8";
 
+.blue {
+  color: #3490dc;
+}
+
+.indigo {
+  color: #6574cd;
+}
+
+.purple {
+  color: #9561e2;
+}
+
+.pink {
+  color: #f66D9b;
+}
+
+.red {
+  color: #e3342f;
+}
+
+.orange {
+  color: #f6993f;
+}
+
+.yellow {
+  color: #ffed4a;
+}
+
+.green {
+  color: #38c172;
+}
+
+.teal {
+  color: #4dc0b5;
+}
+
+.cyan {
+  color: #6cb2eb;
+}
+
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -31105,7 +31145,7 @@ a.text-muted:hover {
   --blue: #3490dc;
   --indigo: #6574cd;
   --purple: #9561e2;
-  --pink: #f66d9b;
+  --pink: #f66D9b;
   --red: #e3342f;
   --orange: #f6993f;
   --yellow: #ffed4a;
@@ -31629,7 +31669,7 @@ mark,
 
 code {
   font-size: 87.5%;
-  color: #f66d9b;
+  color: #f66D9b;
   word-wrap: break-word;
 }
 
@@ -48016,5 +48056,10 @@ readers do not read off random characters that represent icons */
 .fab {
   font-family: "Font Awesome 5 Brands";
   font-weight: 400;
+}
+
+.router-link-exact-active {
+  background-color: #494e53;
+  color: #fff !important;
 }
 
