@@ -10,7 +10,7 @@ require('admin-lte');
 
 
 window.Vue = require('vue');
-
+import moment from 'moment';
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
@@ -20,7 +20,8 @@ Vue.use(VueRouter);
 
 const routes = [
     { path: '/dashboard', component: require('./components/Dashboard.vue').default },
-    { path: '/profile', component: require('./components/Profile.vue').default }
+    { path: '/profile', component: require('./components/Profile.vue').default },
+    { path: '/users', component: require('./components/Users.vue').default }
   ]
 
 /**
@@ -47,10 +48,13 @@ const router = new VueRouter({
     routes // short for `routes: routes`
 });
 
-// const app = new Vue({
-//     el: '#app',
-//     router
-// });
+Vue.filter('upText', function(text){
+    return text.charAt(0).toUpperCase() + text.slice(1)
+});
+
+Vue.filter('myDate',function(created){
+    return moment(created).format('MMMM Do YYYY');
+});
 
 const app = new Vue({
     router
