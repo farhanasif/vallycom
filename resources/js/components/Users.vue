@@ -113,10 +113,9 @@
 
 <script>
     import { Form, HasError, AlertError } from 'vform'
-    
-
     Vue.component(HasError.name, HasError)
     Vue.component(AlertError.name, AlertError)
+
 
     export default {
         data(){
@@ -135,16 +134,41 @@
         },
         methods: {
             loadUser(){
+                this.$swal({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        icon: 'success',
+                        title: 'User',
+                        text: 'loaded successfully!',
+                    });
                 //load usrs
                 axios.get('api/user').then(({ data }) => {
                     this.users = data.data
                 })
             },
             createUser () {
-                this.$Progress.start();
-                // Submit the form via a POST request
-                this.form.post('api/user');
-                this.$Progress.finish();
+                this.form.post('api/user')
+                .then(()=>{
+                    Fire.$emit('AfterCreate');
+                    $('#userModal').modal('hide')
+                    
+                    this.$swal({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        icon: 'success',
+                        title: 'User',
+                        text: 'created successfully!',
+                    });
+                    this.$Progress.finish();
+
+                })
+                .catch(()=>{
+
+                })
             }
         },
         mounted() {
@@ -152,6 +176,10 @@
         },
         created() {
             this.loadUser();
+
+            Fire.$on('AfterCreate', () => {
+               this.loadUser();
+           });
         }
     }
 </script>

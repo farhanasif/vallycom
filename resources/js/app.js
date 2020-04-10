@@ -11,6 +11,15 @@ require('admin-lte');
 
 window.Vue = require('vue');
 import moment from 'moment';
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+const swalOptions = {
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+}
+Vue.use(VueSweetalert2, swalOptions);
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
@@ -61,6 +70,8 @@ Vue.filter('upText', function(text){
 Vue.filter('myDate',function(created){
     return moment(created).format('MMMM Do YYYY');
 });
+
+window.Fire =  new Vue();
 
 const app = new Vue({
     router
