@@ -126,7 +126,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="content">
       <div class="container-fluid">
         <div class="row">
-            <router-view></router-view>
+          <!-- for example router view -->
+          <router-view></router-view>
+          <!-- set progressbar -->
+          <vue-progress-bar></vue-progress-bar>
+
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->

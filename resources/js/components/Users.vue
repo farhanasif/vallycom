@@ -141,8 +141,10 @@
                 })
             },
             createUser () {
-            // Submit the form via a POST request
-            this.form.post('api/user');
+                this.$Progress.start();
+                // Submit the form via a POST request
+                this.form.post('api/user');
+                this.$Progress.finish();
             }
         },
         mounted() {
