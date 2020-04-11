@@ -93,6 +93,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
               
             </ul>
           </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-briefcase teal"></i>
+              <p>
+                Master Data
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/users" class="nav-link">
+                  <i class="fas fa-users-cog nav-icon teal"></i>
+                  <p>Department</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/users" class="nav-link">
+                  <i class="fas fa-code-branch nav-icon teal"></i>
+                  <p>Category</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/users" class="nav-link">
+                  <i class="fas fa-check nav-icon teal"></i>
+                  <p>Subcategory</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/users" class="nav-link">
+                  <i class="fas fa-clone nav-icon teal"></i>
+                  <p>Home Sliders</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/users" class="nav-link">
+                  <i class="fas fa-cog nav-icon teal"></i>
+                  <p>General Settings</p>
+                </router-link>
+              </li>
+            </ul>
+          </li>
           <li class="nav-item">
             <router-link to="/profile" class="nav-link">
               <i class="nav-icon fas fa-user orange"></i>
@@ -146,7 +187,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2019-2020 <a href="https://github.com/farhanasif">Farhan Asif</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2019-2020 <a href="http://entertechbd.com">Entertech</a>.</strong> All rights reserved.
   </footer>
 </div>
 <!-- ./wrapper -->
