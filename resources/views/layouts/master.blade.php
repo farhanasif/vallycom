@@ -117,7 +117,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <router-link to="/users" class="nav-link">
                   <i class="fas fa-check nav-icon teal"></i>
-                  <p>Subcategory</p>
+                  <p>Sub-category</p>
                 </router-link>
               </li>
               <li class="nav-item">
