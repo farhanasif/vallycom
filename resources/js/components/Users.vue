@@ -35,12 +35,12 @@
                               <i class="fas fa-edit blue"></i>
                           </a>
                           |
-                          <a href="#">
+                          <a href="#" @click="deleteUser(user.id)">
                               <i class="fas fa-trash red"></i>
                           </a>
                       </td>
                     </tr>
-                    
+
                   </tbody>
                 </table>
               </div>
@@ -60,7 +60,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                
+
                 <div class="form-group">
                     <label>Name</label>
                     <input v-model="form.name" type="text" name="name"
@@ -115,7 +115,7 @@
     import { Form, HasError, AlertError } from 'vform'
     Vue.component(HasError.name, HasError)
     Vue.component(AlertError.name, AlertError)
-
+    import Swal from 'sweetalert2'
 
     export default {
         data(){
@@ -153,7 +153,7 @@
                 .then(()=>{
                     Fire.$emit('AfterCreate');
                     $('#userModal').modal('hide')
-                    
+
                     this.$swal({
                         toast: true,
                         position: 'top-end',
@@ -169,6 +169,33 @@
                 .catch(()=>{
 
                 })
+            },
+            deleteUser(id){
+                swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+
+                    // Send request to the server
+                    if (result.value) {
+                        this.form.delete('api/user/'+id).then(()=>{
+                            swal.fire({
+                                icon: 'success',
+                                title: 'Your file has been deleted.',
+                                timer: 1500
+                            })
+                            Fire.$emit('AfterCreate');
+                            console.log('complete');
+                        }).catch(()=> {
+                            swal.fire("Failed!", "There was something wronge.", "warning");
+                        });
+                    }
+                })
             }
         },
         mounted() {
@@ -176,7 +203,7 @@
         },
         created() {
             this.loadUser();
-
+            //setInterval(() => this.loadUser(), 15000);
             Fire.$on('AfterCreate', () => {
                this.loadUser();
            });
