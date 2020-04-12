@@ -49,12 +49,16 @@ Vue.use(VueProgressBar, {
   height: '2px'
 })
 
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 
 const routes = [
     { path: '/dashboard', component: require('./components/Dashboard.vue').default },
     { path: '/developer', component: require('./components/Developer.vue').default },
     { path: '/profile', component: require('./components/Profile.vue').default },
-    { path: '/users', component: require('./components/Users.vue').default }
+    { path: '/users', component: require('./components/Users.vue').default },
+    { path: '/invoice', component: require('./components/Invoice.vue').default },
+    { path: '*', component: require('./components/404.vue').default }
   ]
 
 /**
@@ -112,5 +116,17 @@ Vue.component(
 );
 
 const app = new Vue({
-    router
+    router,
+    data:{
+        search: ''
+    },
+    methods:{
+        searchit: _.debounce(() => {
+            Fire.$emit('searching');
+        },1000),
+
+        printme() {
+            window.print();
+        }
+    }
   }).$mount('#app')
