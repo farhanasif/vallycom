@@ -7,7 +7,7 @@
                 <h3 class="card-title">All Users</h3>
 
                 <div class="card-tools">
-                  <button class="btn btn-success" data-toggle="modal" data-target="#userModal">Add New <i class="fas fa-user-plus fa-fw"></i></button>
+                  <button class="btn btn-success" @click="newModal">Add New <i class="fas fa-user-plus fa-fw"></i></button>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -31,7 +31,7 @@
                       <td><span class="tag tag-success">{{user.type | upText}}</span></td>
                       <td>{{user.created_at | myDate}}</td>
                       <td>
-                          <a href="#">
+                          <a href="#" @click="editModal(user)">
                               <i class="fas fa-edit blue"></i>
                           </a>
                           |
@@ -51,10 +51,11 @@
             <!-- Modal -->
         <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form @submit.prevent="createUser">
+            <form @submit.prevent="editmode ? updateUser() : createUser()">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="userModalLabel">Add a new user</h5>
+                <h5 class="modal-title" v-show="!editmode" id="addNewLabel">Add New</h5>
+                <h5 class="modal-title" v-show="editmode" id="addNewLabel">Update User's Info</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -101,7 +102,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
+                <button v-show="!editmode" type="submit" class="btn btn-primary">Create</button>
             </div>
             </div>
             </form>
@@ -120,6 +122,7 @@
     export default {
         data(){
             return {
+                editmode: false,
                 users: {},
                 form: new Form({
                     id:'',
@@ -133,16 +136,18 @@
             }
         },
         methods: {
+            newModal(){
+                this.editmode = false;
+                this.form.reset();
+                $('#userModal').modal('show');
+            },
+            editModal(user){
+                this.editmode = true;
+                this.form.reset();
+                $('#userModal').modal('show');
+                this.form.fill(user);
+            },
             loadUser(){
-                this.$swal({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 3000,
-                        icon: 'success',
-                        title: 'User',
-                        text: 'loaded successfully!',
-                    });
                 //load usrs
                 axios.get('api/user').then(({ data }) => {
                     this.users = data.data
@@ -170,6 +175,26 @@
 
                 })
             },
+            updateUser(){
+                this.$Progress.start();
+                // console.log('Editing data');
+                this.form.put('api/user/'+this.form.id)
+                .then(() => {
+                    // success
+                    $('#userModal').modal('hide');
+                     swal.fire(
+                        'Updated!',
+                        'Information has been updated.',
+                        'success'
+                        )
+                        this.$Progress.finish();
+                         Fire.$emit('AfterCreate');
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                });
+
+            },
             deleteUser(id){
                 swal.fire({
                     title: 'Are you sure?',
@@ -186,8 +211,8 @@
                         this.form.delete('api/user/'+id).then(()=>{
                             swal.fire({
                                 icon: 'success',
-                                title: 'Your file has been deleted.',
-                                timer: 1500
+                                title: 'Deleted',
+                                text: 'Your file has been deleted.',
                             })
                             Fire.$emit('AfterCreate');
                             console.log('complete');
