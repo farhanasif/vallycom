@@ -9,7 +9,7 @@
                         <h5 class="widget-user-desc">{{this.form.bio ? this.form.bio : 'No bio found'}}</h5>
                     </div>
                     <div class="widget-user-image">
-                        <img class="img-circle elevation-2" src="" alt="User Avatar">
+                        <img class="img-circle" :src="getProfilePhoto()" alt="User Avatar">
                     </div>
                     <div class="card-footer">
                         <div class="row">
@@ -82,14 +82,14 @@
                                     <label for="inputExperience" class="col-sm-2 control-label">Bio</label>
 
                                     <div class="col-sm-12">
-                                    <textarea  v-model="form.bio" class="form-control" id="inputExperience" placeholder="Experience" :class="{ 'is-invalid': form.errors.has('bio') }"></textarea>
+                                    <textarea  v-model="form.bio" class="form-control" id="inputExperience" placeholder="bio" :class="{ 'is-invalid': form.errors.has('bio') }"></textarea>
                                      <has-error :form="form" field="bio"></has-error>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="photo" class="col-sm-2 control-label">Profile Photo</label>
                                     <div class="col-sm-12">
-                                        <input type="file" name="photo" class="form-input">
+                                        <input type="file" name="photo" @change="updateProfile" class="form-input">
                                     </div>
 
                                 </div>
@@ -155,6 +155,58 @@
         created(){
             axios.get("api/profile")
             .then(({ data }) => (this.form.fill(data)));
+        },
+        methods: {
+            updateProfile(e){
+                let file = e.target.files[0];
+                let reader = new FileReader();
+
+                let limit = 1024 * 1024 * 2;
+                if(file['size'] > limit){
+                    swal.fire({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'You are uploading a large file',
+                    })
+                    return false;
+                }
+
+                reader.onloadend = (file) => {
+                    this.form.photo = reader.result;
+                }
+                reader.readAsDataURL(file);
+            },
+            getProfilePhoto(){
+                if(this.form.photo){
+                    let photo = (this.form.photo.length > 200) ? this.form.photo : "img/profile/"+ this.form.photo ;
+                    return photo;
+                }
+
+            },
+            updateInfo(){
+                this.$Progress.start();
+                if(this.form.password == ''){
+                    this.form.password = undefined;
+                }
+                this.form.put('api/profile')
+                .then(()=>{
+                     Fire.$emit('AfterCreate');
+                     swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        icon: 'success',
+                        title: 'User',
+                        text: 'Updated successfully!',
+                    });
+                    this.$Progress.finish();
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                });
+            },
         }
+
     }
 </script>
