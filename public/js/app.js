@@ -2162,15 +2162,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
+  },
+  methods: {
+    printme: function printme() {
+      window.print();
+    }
   }
 });
 
@@ -7987,7 +7986,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/sweetalert2/dist/sweetalert2.min.css":
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/sweetalert2/dist/sweetalert2.min.css?0d7f":
 /*!*******************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/sweetalert2/dist/sweetalert2.min.css ***!
   \*******************************************************************************************************************************************/
@@ -60780,7 +60779,7 @@ if (typeof this !== 'undefined' && this.Sweetalert2){  this.swal = this.sweetAle
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../css-loader??ref--6-1!../../postcss-loader/src??ref--6-2!./sweetalert2.min.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/sweetalert2/dist/sweetalert2.min.css");
+var content = __webpack_require__(/*! !../../css-loader??ref--6-1!../../postcss-loader/src??ref--6-2!./sweetalert2.min.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/sweetalert2/dist/sweetalert2.min.css?0d7f");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -63729,253 +63728,246 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container mt-3" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "invoice p-3 mb-3" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _vm._m(2),
+          _vm._v(" "),
+          _vm._m(3),
+          _vm._v(" "),
+          _c("div", { staticClass: "row no-print" }, [
+            _c("div", { staticClass: "col-12" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-default",
+                  attrs: { href: "" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.printme()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-print" }), _vm._v(" Print")]
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container mt-3" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-12" }, [
-          _c("div", { staticClass: "invoice p-3 mb-3" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-12" }, [
-                _c("h4", [
-                  _c("i", { staticClass: "fas fa-globe" }),
-                  _vm._v(" vallycom.\n                "),
-                  _c("small", { staticClass: "float-right" }, [
-                    _vm._v("Date: 2/10/2014")
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row invoice-info" }, [
-              _c("div", { staticClass: "col-sm-4 invoice-col" }, [
-                _vm._v("\n              From\n              "),
-                _c("address", [
-                  _c("strong", [_vm._v("Admin, Inc.")]),
-                  _c("br"),
-                  _vm._v("\n                795 Folsom Ave, Suite 600"),
-                  _c("br"),
-                  _vm._v("\n                San Francisco, CA 94107"),
-                  _c("br"),
-                  _vm._v("\n                Phone: (804) 123-5432"),
-                  _c("br"),
-                  _vm._v(
-                    "\n                Email: info@almasaeedstudio.com\n              "
-                  )
-                ])
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("h4", [
+          _c("i", { staticClass: "fas fa-globe" }),
+          _vm._v(" vallycom.\n                "),
+          _c("small", { staticClass: "float-right" }, [
+            _vm._v("Date: 2/10/2014")
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row invoice-info" }, [
+      _c("div", { staticClass: "col-sm-4 invoice-col" }, [
+        _vm._v("\n              From\n              "),
+        _c("address", [
+          _c("strong", [_vm._v("Admin, Inc.")]),
+          _c("br"),
+          _vm._v("\n                795 Folsom Ave, Suite 600"),
+          _c("br"),
+          _vm._v("\n                San Francisco, CA 94107"),
+          _c("br"),
+          _vm._v("\n                Phone: (804) 123-5432"),
+          _c("br"),
+          _vm._v(
+            "\n                Email: info@almasaeedstudio.com\n              "
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-4 invoice-col" }, [
+        _vm._v("\n              To\n              "),
+        _c("address", [
+          _c("strong", [_vm._v("John Doe")]),
+          _c("br"),
+          _vm._v("\n                795 Folsom Ave, Suite 600"),
+          _c("br"),
+          _vm._v("\n                San Francisco, CA 94107"),
+          _c("br"),
+          _vm._v("\n                Phone: (555) 539-1037"),
+          _c("br"),
+          _vm._v(
+            "\n                Email: john.doe@example.com\n              "
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-4 invoice-col" }, [
+        _c("b", [_vm._v("Invoice #007612")]),
+        _c("br"),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("b", [_vm._v("Order ID:")]),
+        _vm._v(" 4F3S8J"),
+        _c("br"),
+        _vm._v(" "),
+        _c("b", [_vm._v("Payment Due:")]),
+        _vm._v(" 2/22/2014"),
+        _c("br"),
+        _vm._v(" "),
+        _c("b", [_vm._v("Account:")]),
+        _vm._v(" 968-34567\n            ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12 table-responsive" }, [
+        _c("table", { staticClass: "table table-striped" }, [
+          _c("thead", [
+            _c("tr", [
+              _c("th", [_vm._v("Qty")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Product")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Serial #")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Description")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Subtotal")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("tbody", [
+            _c("tr", [
+              _c("td", [_vm._v("1")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Call of Duty")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("455-981-221")]),
+              _vm._v(" "),
+              _c("td", [
+                _vm._v("El snort testosterone trophy driving gloves handsome")
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-sm-4 invoice-col" }, [
-                _vm._v("\n              To\n              "),
-                _c("address", [
-                  _c("strong", [_vm._v("John Doe")]),
-                  _c("br"),
-                  _vm._v("\n                795 Folsom Ave, Suite 600"),
-                  _c("br"),
-                  _vm._v("\n                San Francisco, CA 94107"),
-                  _c("br"),
-                  _vm._v("\n                Phone: (555) 539-1037"),
-                  _c("br"),
-                  _vm._v(
-                    "\n                Email: john.doe@example.com\n              "
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-4 invoice-col" }, [
-                _c("b", [_vm._v("Invoice #007612")]),
-                _c("br"),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("b", [_vm._v("Order ID:")]),
-                _vm._v(" 4F3S8J"),
-                _c("br"),
-                _vm._v(" "),
-                _c("b", [_vm._v("Payment Due:")]),
-                _vm._v(" 2/22/2014"),
-                _c("br"),
-                _vm._v(" "),
-                _c("b", [_vm._v("Account:")]),
-                _vm._v(" 968-34567\n            ")
-              ])
+              _c("td", [_vm._v("$64.50")])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-12 table-responsive" }, [
-                _c("table", { staticClass: "table table-striped" }, [
-                  _c("thead", [
-                    _c("tr", [
-                      _c("th", [_vm._v("Qty")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Product")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Serial #")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Description")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Subtotal")])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("tbody", [
-                    _c("tr", [
-                      _c("td", [_vm._v("1")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("Call of Duty")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("455-981-221")]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "El snort testosterone trophy driving gloves handsome"
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("$64.50")])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", [_vm._v("1")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("Need for Speed IV")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("247-925-726")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("Wes Anderson umami biodiesel")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("$50.00")])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", [_vm._v("1")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("Monsters DVD")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("735-845-642")]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "Terry Richardson helvetica tousled street art master"
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("$10.70")])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", [_vm._v("1")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("Grown Ups Blue Ray")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("422-568-642")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("Tousled lomo letterpress")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("$25.99")])
-                    ])
-                  ])
-                ])
-              ])
+            _c("tr", [
+              _c("td", [_vm._v("1")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Need for Speed IV")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("247-925-726")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Wes Anderson umami biodiesel")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("$50.00")])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-6" }, [
-                _c("p", { staticClass: "lead" }, [_vm._v("Payment Methods:")]),
-                _vm._v(" "),
-                _c(
-                  "p",
-                  {
-                    staticClass: "text-muted well well-sm shadow-none",
-                    staticStyle: { "margin-top": "10px" }
-                  },
-                  [
-                    _vm._v(
-                      "\n                Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem\n                plugg\n                dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.\n              "
-                    )
-                  ]
-                )
+            _c("tr", [
+              _c("td", [_vm._v("1")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Monsters DVD")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("735-845-642")]),
+              _vm._v(" "),
+              _c("td", [
+                _vm._v("Terry Richardson helvetica tousled street art master")
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-6" }, [
-                _c("p", { staticClass: "lead" }, [
-                  _vm._v("Amount Due 2/22/2014")
+              _c("td", [_vm._v("$10.70")])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td", [_vm._v("1")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Grown Ups Blue Ray")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("422-568-642")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Tousled lomo letterpress")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("$25.99")])
+            ])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-6" }, [
+        _c("p", { staticClass: "lead" }, [_vm._v("Payment Methods:")]),
+        _vm._v(" "),
+        _c(
+          "p",
+          {
+            staticClass: "text-muted well well-sm shadow-none",
+            staticStyle: { "margin-top": "10px" }
+          },
+          [
+            _vm._v(
+              "\n                Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem\n                plugg\n                dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.\n              "
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-6" }, [
+        _c("p", { staticClass: "lead" }, [_vm._v("Amount Due 2/22/2014")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "table-responsive" }, [
+          _c("table", { staticClass: "table" }, [
+            _c("tbody", [
+              _c("tr", [
+                _c("th", { staticStyle: { width: "50%" } }, [
+                  _vm._v("Subtotal:")
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "table-responsive" }, [
-                  _c("table", { staticClass: "table" }, [
-                    _c("tbody", [
-                      _c("tr", [
-                        _c("th", { staticStyle: { width: "50%" } }, [
-                          _vm._v("Subtotal:")
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("$250.30")])
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("th", [_vm._v("Tax (9.3%)")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("$10.34")])
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("th", [_vm._v("Shipping:")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("$5.80")])
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("th", [_vm._v("Total:")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("$265.24")])
-                      ])
-                    ])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row no-print" }, [
-              _c("div", { staticClass: "col-12" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-default",
-                    attrs: { href: "invoice-print.html", target: "_blank" }
-                  },
-                  [_c("i", { staticClass: "fas fa-print" }), _vm._v(" Print")]
-                ),
+                _c("td", [_vm._v("$250.30")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("th", [_vm._v("Tax (9.3%)")]),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success float-right",
-                    attrs: { type: "button" }
-                  },
-                  [
-                    _c("i", { staticClass: "far fa-credit-card" }),
-                    _vm._v(" Submit\n                Payment\n              ")
-                  ]
-                ),
+                _c("td", [_vm._v("$10.34")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("th", [_vm._v("Shipping:")]),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary float-right",
-                    staticStyle: { "margin-right": "5px" },
-                    attrs: { type: "button" }
-                  },
-                  [
-                    _c("i", { staticClass: "fas fa-download" }),
-                    _vm._v(" Generate PDF\n              ")
-                  ]
-                )
+                _c("td", [_vm._v("$5.80")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("th", [_vm._v("Total:")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$265.24")])
               ])
             ])
           ])
