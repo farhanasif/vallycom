@@ -215,5 +215,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 @endauth
 <script src="/js/app.js"></script>
+<script src="https://adminlte.io/themes/dev/AdminLTE/plugins/chart.js/Chart.min.js"></script>
 </body>
 </html>
