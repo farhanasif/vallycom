@@ -56,7 +56,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="./img/profile.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+          <router-link to="/profile" class="d-block">{{ Auth::user()->name }}</router-link>
         </div>
       </div>
 
@@ -142,14 +142,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </router-link>
           </li>
           @endcan
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <router-link to="/profile" class="nav-link">
               <i class="nav-icon fas fa-user orange"></i>
               <p>
                 Profile
               </p>
             </router-link>
-          </li>
+          </li> -->
           <li class="nav-item">
             <router-link to="/invoice" class="nav-link">
               <i class="nav-icon fas fa-cog red"></i>

@@ -7,7 +7,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
+              <li class="breadcrumb-item active">Dashboard</li>
             </ol>
           </div><!-- /.col -->
         </div>
@@ -346,9 +346,9 @@
               </div>
               <!-- /.info-box-content -->
             </div>
-            
 
-           
+
+
           </div>
         </div>
     </div>
@@ -426,9 +426,9 @@
                 }
 
                 // This will get the first returned node in the jQuery collection.
-                var salesChart = new Chart(salesChartCanvas, { 
-                    type: 'line', 
-                    data: salesChartData, 
+                var salesChart = new Chart(salesChartCanvas, {
+                    type: 'line',
+                    data: salesChartData,
                     options: salesChartOptions
                     }
                 )
