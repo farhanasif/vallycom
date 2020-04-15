@@ -85,7 +85,7 @@
           <i class="fab fa-facebook mr-2"></i>
           Sign up using Facebook
         </a>
-        <a href="#" class="btn btn-block btn-danger">
+        <a href="#" class="btn btn-block btn-success">
           <i class="fab fa-google-plus mr-2"></i>
           Sign up using Google+
         </a>
