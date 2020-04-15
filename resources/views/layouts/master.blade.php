@@ -45,7 +45,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <a href="index3.html" class="brand-link">
       <img src="./img/logo.png" alt="vallycom" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">VALLYCOM</span>
+      <span class="brand-text font-weight-bold">VALLYCOM</span>
     </a>
 
     <!-- Sidebar -->
