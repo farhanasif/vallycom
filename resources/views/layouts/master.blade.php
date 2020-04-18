@@ -33,7 +33,52 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <i class="fa fa-search"></i>
           </button>
         </div>
-      </div>
+    </div>
+    <!-- Right navbar links -->
+    <div class="col-md-2">
+    <ul class="navbar-nav ml-auto">
+      <!-- Messages Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="fas fa-user ml-3 mr-1"></i>
+          @can('isUser')
+            <span class="badge badge-danger navbar-badge">3</span>{{ Auth::user()->name }}
+          @endcan
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          @auth
+          <a href="#" class="dropdown-item">
+            <!-- Message Start -->
+            <div class="media">
+              <div class="media-body">
+                <h3 class="dropdown-item-title">
+                {{ Auth::user()->name }}
+                  <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                </h3>
+              </div>
+            </div>
+            <!-- Message End -->
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item dropdown-footer" href="{{ route('logout') }}"
+                onclick="event.preventDefault(); document.getElementById('logout-form1').submit();">
+                <i class="nav-icon fas fa-power-off mr-2 red"></i> Log out
+          </a>
+          <form id="logout-form1" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+          </form>
+          @else
+          <a href="/login" class="dropdown-item dropdown-footer"><i class="fas fa-arrow-right mr-2 red"></i>Login</a>
+          <div class="dropdown-divider"></div>
+          <a href="/register" class="dropdown-item dropdown-footer"><i class="fas fa-user mr-2 red"></i>Register Here</a>
+          @endauth
+        </div>
+      </li>
+    </ul>
+    </div>
+    
+  </nav>
+  <!-- /.navbar -->
 
 
   </nav>
@@ -51,6 +96,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
+      @auth
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="./img/profile.png" class="img-circle elevation-2" alt="User Image">
@@ -60,11 +106,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
       </div>
 
+      @can('isAdmin')
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+          
           <li class="nav-item">
             <router-link to="/dashboard" class="nav-link">
               <i class="nav-icon fas fa-chart-bar blue"></i>
@@ -73,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </router-link>
           </li>
-          @can('isAdmin')
+          
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog green"></i>
@@ -141,7 +189,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </router-link>
           </li>
-          @endcan
+          
           <!-- <li class="nav-item">
             <router-link to="/profile" class="nav-link">
               <i class="nav-icon fas fa-user orange"></i>
@@ -166,12 +214,90 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     Log out
                 </p>
             </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
           </li>
         </ul>
       </nav>
+      @endcan
+      @else
+      <!-- check if user role logged in -->
+        @can('isUser')
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="./img/profile.png" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <router-link to="/profile" class="d-block">{{ Auth::user()->name }}</router-link>
+          </div>
+        </div>
+        @endcan
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+                with font-awesome or any other icon font library -->
+            <li class="nav-item">
+              <router-link to="/" class="nav-link">
+                <i class="nav-icon fas fa-chart-bar white"></i>
+                <p>
+                  Home
+                </p>
+              </router-link>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-copy white"></i>
+                <p>
+                  Departments
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <router-link to="/" class="nav-link">
+                    <i class="fas fa-angle-right nav-icon white"></i>
+                    <p>Electronics</p>
+                  </router-link>
+                </li>
+
+              </ul>
+            </li>
+            <li class="nav-item">
+              <router-link to="/" class="nav-link">
+                <i class="nav-icon fas fa-angle-right white"></i>
+                <p>
+                  Learn More
+                </p>
+              </router-link>
+            </li>
+            <!-- <li class="nav-item">
+              <router-link to="/profile" class="nav-link">
+                <i class="nav-icon fas fa-user orange"></i>
+                <p>
+                  Profile
+                </p>
+              </router-link>
+            </li> -->
+            <li class="nav-item">
+              <router-link to="/invoice" class="nav-link">
+                <i class="nav-icon fas fa-cog red"></i>
+                <p>
+                  Campaign
+                </p>
+              </router-link>
+            </li>
+            @auth
+            @else
+            <li class="nav-item">
+              <a href="/login" class="nav-link">
+                <i class="nav-icon fas fa-arrow-right red"></i>
+                <p>
+                  Login
+                </p>
+              </a>
+            </li>
+            @endauth
+          </ul>
+        </nav>
+      @endauth
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -199,9 +325,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Footer -->
   <footer class="main-footer no-print">
     <!-- To the right -->
-    <div class="float-right d-none d-sm-inline">
+    <!-- <div class="float-right d-none d-sm-inline">
       Anything you want
-    </div>
+    </div> -->
     <!-- Default to the left -->
     <strong>Copyright &copy; 2019-2020 <a href="http://entertechbd.com">Entertech</a>.</strong> All rights reserved.
   </footer>
