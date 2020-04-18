@@ -47,7 +47,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           @auth
-          <a href="#" class="dropdown-item">
+          <router-link to="/profile" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
               <div class="media-body">
@@ -58,7 +58,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </div>
             </div>
             <!-- Message End -->
-          </a>
+          </router-link>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item dropdown-footer" href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form1').submit();">
@@ -229,6 +229,73 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <router-link to="/profile" class="d-block">{{ Auth::user()->name }}</router-link>
           </div>
         </div>
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+                with font-awesome or any other icon font library -->
+            <li class="nav-item">
+              <router-link to="/" class="nav-link">
+                <i class="nav-icon fas fa-home white"></i>
+                <p>
+                  Home
+                </p>
+              </router-link>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-copy white"></i>
+                <p>
+                  Departments
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <router-link to="/" class="nav-link">
+                    <i class="fas fa-angle-right nav-icon white"></i>
+                    <p>Electronics</p>
+                  </router-link>
+                </li>
+
+              </ul>
+            </li>
+            <li class="nav-item">
+              <router-link to="/" class="nav-link">
+                <i class="nav-icon fas fa-angle-right white"></i>
+                <p>
+                  Learn More
+                </p>
+              </router-link>
+            </li>
+            <!-- <li class="nav-item">
+              <router-link to="/profile" class="nav-link">
+                <i class="nav-icon fas fa-user orange"></i>
+                <p>
+                  Profile
+                </p>
+              </router-link>
+            </li> -->
+            <li class="nav-item">
+              <router-link to="/invoice" class="nav-link">
+                <i class="nav-icon fas fa-cog red"></i>
+                <p>
+                  Campaign
+                </p>
+              </router-link>
+            </li>
+            @auth
+            @else
+            <li class="nav-item">
+              <a href="/login" class="nav-link">
+                <i class="nav-icon fas fa-arrow-right red"></i>
+                <p>
+                  Login
+                </p>
+              </a>
+            </li>
+            @endauth
+          </ul>
+        </nav>
         @endcan
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -236,7 +303,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 with font-awesome or any other icon font library -->
             <li class="nav-item">
               <router-link to="/" class="nav-link">
-                <i class="nav-icon fas fa-chart-bar white"></i>
+                <i class="nav-icon fas fa-home white"></i>
                 <p>
                   Home
                 </p>
@@ -325,9 +392,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Footer -->
   <footer class="main-footer no-print">
     <!-- To the right -->
-    <!-- <div class="float-right d-none d-sm-inline">
-      Anything you want
-    </div> -->
+    <div class="float-right d-none d-sm-inline">
+      <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px" href="https://unsplash.com/@mnzoutfits?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Mnz"><span style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span style="display:inline-block;padding:2px 3px">Mnz</span></a>
+        <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px" href="https://unsplash.com/@brucemars?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from bruce mars"><span style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span style="display:inline-block;padding:2px 3px">bruce mars</span></a>
+    </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2019-2020 <a href="http://entertechbd.com">Entertech</a>.</strong> All rights reserved.
   </footer>

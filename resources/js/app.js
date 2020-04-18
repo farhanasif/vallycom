@@ -51,6 +51,10 @@ Vue.use(VueProgressBar, {
 
 Vue.component('pagination', require('laravel-vue-pagination'));
 
+import InfiniteLoading from 'vue-infinite-loading';
+
+Vue.use(InfiniteLoading);
+
 
 const routes = [
     { path: '/', component: require('./components/Home.vue').default },
