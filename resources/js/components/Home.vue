@@ -48,6 +48,8 @@
 </template>
 
 <script>
+    import InfiniteLoading from 'vue-infinite-loading';
+
     export default {
         data(){
             return {
@@ -61,23 +63,46 @@
             //         this.products = data
             //     })
             // },
-            infiniteHandler(){
-                console.log('loading infinite...')
-                axios.get('MOCK_DATA.json').then(({ data }) => {
-                    //console.log(data);
-                    if(data.length){
-                        this.products.push(data);
-                        console.log(this.products);
-                    }
+            // infiniteHandler(){
+            //     console.log('loading infinite...')
+            //     axios.get('MOCK_DATA.json').then(({ data }) => {
+            //         //console.log(data);
+            //         if(data.length){
+            //             this.products.push(data);
+            //             console.log('products loaded');
+            //         }
                     
-                })
-            }
+            //     })
+            // },
+            infiniteHandler($state) {
+                setTimeout(() => {
+                    console.log('loading infinite...')
+                    axios.get('MOCK_DATA.json').then(({ data }) => {
+                        //console.log(data);
+                        if(data.length){
+                            const temp = [];
+                            for(let i in data){
+                                temp.push(data[i]);
+                            }
+                            //this.products = this.products.concat(temp);
+                            this.products.push(data);
+                            console.log(this.products);
+                        }
+                        
+                    })
+                    //this.list = this.list.concat(temp);
+                    $state.loaded();
+                }, 1000);
+            },
         },
         mounted() {
             console.log('Component mounted.')
         },
         created() {
             //this.loadProducts();
-        }
+        },
+        components: {
+            InfiniteLoading,
+        },
     }
 </script>

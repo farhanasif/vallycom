@@ -2419,6 +2419,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-infinite-loading */ "./node_modules/vue-infinite-loading/dist/vue-infinite-loading.js");
+/* harmony import */ var vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2468,6 +2470,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2481,26 +2484,50 @@ __webpack_require__.r(__webpack_exports__);
     //         this.products = data
     //     })
     // },
-    infiniteHandler: function infiniteHandler() {
+    // infiniteHandler(){
+    //     console.log('loading infinite...')
+    //     axios.get('MOCK_DATA.json').then(({ data }) => {
+    //         //console.log(data);
+    //         if(data.length){
+    //             this.products.push(data);
+    //             console.log('products loaded');
+    //         }
+    //     })
+    // },
+    infiniteHandler: function infiniteHandler($state) {
       var _this = this;
 
-      console.log('loading infinite...');
-      axios.get('MOCK_DATA.json').then(function (_ref) {
-        var data = _ref.data;
+      setTimeout(function () {
+        console.log('loading infinite...');
+        axios.get('MOCK_DATA.json').then(function (_ref) {
+          var data = _ref.data;
 
-        //console.log(data);
-        if (data.length) {
-          _this.products.push(data);
+          //console.log(data);
+          if (data.length) {
+            var temp = [];
 
-          console.log(_this.products);
-        }
-      });
+            for (var i in data) {
+              temp.push(data[i]);
+            } //this.products = this.products.concat(temp);
+
+
+            _this.products.push(data);
+
+            console.log(_this.products);
+          }
+        }); //this.list = this.list.concat(temp);
+
+        $state.loaded();
+      }, 1000);
     }
   },
   mounted: function mounted() {
     console.log('Component mounted.');
   },
   created: function created() {//this.loadProducts();
+  },
+  components: {
+    InfiniteLoading: vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0___default.a
   }
 });
 

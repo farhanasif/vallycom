@@ -206,7 +206,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </router-link>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="nav-icon fas fa-power-off red"></i>
@@ -214,7 +214,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     Log out
                 </p>
             </a>
-          </li>
+          </li> -->
         </ul>
       </nav>
       @endcan
