@@ -20,35 +20,25 @@
                 <h3 class="h3">... Explore ...</h3>
             </div>
             <div class="row">
-                <div class="col-md-4 col-sm-6" v-for="product in products[0]" :key="product.id">
-                    <div class="product-grid3">
-                        <div class="product-image3">
-                            <a href="#">
-                                <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo4/images/img-1.jpg">
-                                <img class="pic-2" src="http://bestjquery.com/tutorial/product-grid/demo4/images/img-2.jpg">
-                            </a>
-                            <ul class="social">
-                                <li><a href="#"><i class="fa fa-shopping-bag"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                            <span class="product-new-label">SALE</span>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="title"><a href="#">{{product.title}}</a></h3>
-                            <div class="price">
-                                ${{product.price}}
-                            </div>
+                <div class="col-md-4" v-for="product in products" :key="product.id">
+                    <div class="card" style="width: 18rem;">
+                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{product.title}}</h5>
+                            <p class="card-text">${{product.price}}</p>
+                            <a href="#" class="btn btn-warning"><i class="nav-icon fas fa-heart black mr-1"></i>Wishlist</a>
+                            <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-cart-plus white mr-1"></i>Add to Cart</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+        <!--<infinite-loading @infinite="infiniteHandler"></infinite-loading>-->
     </div>
 </template>
 
 <script>
-    import InfiniteLoading from 'vue-infinite-loading';
+    // import InfiniteLoading from 'vue-infinite-loading';
 
     export default {
         data(){
@@ -57,12 +47,12 @@
             }
         },
         methods: {
-            // loadProducts(){
-            //     axios.get('MOCK_DATA.json').then(({ data }) => {
-            //         console.log(data);
-            //         this.products = data
-            //     })
-            // },
+            loadProducts(){
+                axios.get('MOCK_DATA.json').then(({ data }) => {
+                    console.log(data);
+                    this.products = data
+                })
+            },
             // infiniteHandler(){
             //     console.log('loading infinite...')
             //     axios.get('MOCK_DATA.json').then(({ data }) => {
@@ -74,35 +64,35 @@
                     
             //     })
             // },
-            infiniteHandler($state) {
-                setTimeout(() => {
-                    console.log('loading infinite...')
-                    axios.get('MOCK_DATA.json').then(({ data }) => {
-                        //console.log(data);
-                        if(data.length){
-                            const temp = [];
-                            for(let i in data){
-                                temp.push(data[i]);
-                            }
-                            //this.products = this.products.concat(temp);
-                            this.products.push(data);
-                            console.log(this.products);
-                        }
+            // infiniteHandler($state) {
+            //     setTimeout(() => {
+            //         console.log('loading infinite...')
+            //         axios.get('MOCK_DATA.json').then(({ data }) => {
+            //             //console.log(data);
+            //             if(data.length){
+            //                 const temp = [];
+            //                 for(let i in data){
+            //                     temp.push(data[i]);
+            //                 }
+            //                 //this.products = this.products.concat(temp);
+            //                 this.products.push(data);
+            //                 console.log(this.products);
+            //             }
                         
-                    })
-                    //this.list = this.list.concat(temp);
-                    $state.loaded();
-                }, 1000);
-            },
+            //         })
+            //         //this.list = this.list.concat(temp);
+            //         $state.loaded();
+            //     }, 1000);
+            //},
         },
         mounted() {
             console.log('Component mounted.')
         },
         created() {
-            //this.loadProducts();
+            this.loadProducts();
         },
-        components: {
-            InfiniteLoading,
-        },
+        // components: {
+        //     InfiniteLoading,
+        // },
     }
 </script>

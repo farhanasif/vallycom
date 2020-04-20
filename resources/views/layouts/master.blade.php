@@ -74,6 +74,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
           @endauth
         </div>
       </li>
+      <li class="nav-item drodown">
+        <a class="nav-link" href="#">
+          <i class="fas fa-cart-arrow-down ml-3 mr-1 red"></i>
+        </a>
+      </li>
     </ul>
     </div>
     
@@ -235,7 +240,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 with font-awesome or any other icon font library -->
             <li class="nav-item">
               <router-link to="/" class="nav-link">
-                <i class="nav-icon fas fa-home white"></i>
+                <i class="nav-icon fas fa-home orange"></i>
                 <p>
                   Home
                 </p>
@@ -243,7 +248,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-copy white"></i>
+                <i class="nav-icon fas fa-copy blue"></i>
                 <p>
                   Departments
                   <i class="right fas fa-angle-left"></i>
@@ -260,8 +265,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </ul>
             </li>
             <li class="nav-item">
-              <router-link to="/" class="nav-link">
-                <i class="nav-icon fas fa-angle-right white"></i>
+              <router-link to="/learn" class="nav-link">
+                <i class="nav-icon fas fa-book-open green"></i>
                 <p>
                   Learn More
                 </p>
@@ -277,7 +282,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li> -->
             <li class="nav-item">
               <router-link to="/invoice" class="nav-link">
-                <i class="nav-icon fas fa-cog red"></i>
+                <i class="nav-icon fas fa-campground yellow"></i>
                 <p>
                   Campaign
                 </p>
@@ -303,7 +308,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 with font-awesome or any other icon font library -->
             <li class="nav-item">
               <router-link to="/" class="nav-link">
-                <i class="nav-icon fas fa-home white"></i>
+                <i class="nav-icon fas fa-home orange"></i>
                 <p>
                   Home
                 </p>
@@ -311,7 +316,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-copy white"></i>
+                <i class="nav-icon fas fa-copy blue"></i>
                 <p>
                   Departments
                   <i class="right fas fa-angle-left"></i>
@@ -328,8 +333,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </ul>
             </li>
             <li class="nav-item">
-              <router-link to="/" class="nav-link">
-                <i class="nav-icon fas fa-angle-right white"></i>
+              <router-link to="/learn" class="nav-link">
+                <i class="nav-icon fas fa-book-open green"></i>
                 <p>
                   Learn More
                 </p>
@@ -345,7 +350,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li> -->
             <li class="nav-item">
               <router-link to="/invoice" class="nav-link">
-                <i class="nav-icon fas fa-cog red"></i>
+                <i class="nav-icon fas fa-campground yellow"></i>
                 <p>
                   Campaign
                 </p>
