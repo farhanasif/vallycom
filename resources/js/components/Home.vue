@@ -22,10 +22,10 @@
             <div class="row">
                 <div class="col-md-4" v-for="product in products" :key="product.id">
                     <div class="card" style="width: 18rem;">
-                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="...">
+                        <img src="https://dummyimage.com/150x150/0ff573/fff" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{product.title}}</h5>
-                            <p class="card-text">${{product.price}}</p>
+                            <p class="card-text">${{product.current_price}}</p>
                             <a href="#" class="btn btn-warning"><i class="nav-icon fas fa-heart black mr-1"></i>Wishlist</a>
                             <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-cart-plus white mr-1"></i>Add to Cart</a>
                         </div>
@@ -33,66 +33,47 @@
                 </div>
             </div>
         </div>
-        <!--<infinite-loading @infinite="infiniteHandler"></infinite-loading>-->
+        <infinite-loading @infinite="infiniteHandler"></infinite-loading>
     </div>
 </template>
 
 <script>
-    // import InfiniteLoading from 'vue-infinite-loading';
+    import InfiniteLoading from 'vue-infinite-loading';
 
     export default {
         data(){
             return {
-                products: []
+                products: [],
+                page: 1,
             }
         },
         methods: {
-            loadProducts(){
-                axios.get('MOCK_DATA.json').then(({ data }) => {
-                    console.log(data);
-                    this.products = data
-                })
-            },
-            // infiniteHandler(){
-            //     console.log('loading infinite...')
-            //     axios.get('MOCK_DATA.json').then(({ data }) => {
-            //         //console.log(data);
-            //         if(data.length){
-            //             this.products.push(data);
-            //             console.log('products loaded');
-            //         }
-                    
-            //     })
-            // },
-            // infiniteHandler($state) {
-            //     setTimeout(() => {
-            //         console.log('loading infinite...')
-            //         axios.get('MOCK_DATA.json').then(({ data }) => {
-            //             //console.log(data);
-            //             if(data.length){
-            //                 const temp = [];
-            //                 for(let i in data){
-            //                     temp.push(data[i]);
-            //                 }
-            //                 //this.products = this.products.concat(temp);
-            //                 this.products.push(data);
-            //                 console.log(this.products);
-            //             }
+            infiniteHandler($state) {
+                setTimeout(() => {
+                    console.log('loading infinite...')
+                    axios.get('api/products',{
+                        params: {
+                            page: this.page,
+                        },
+                    }).then(({ data }) => {
+                        console.log(data);
+                        if (data.data.length) {
+                            this.page += 1;
+                            for(let i = 0; i<data.data.length; i++){
+                                this.products.push(data.data[i]);
+                            }
+                            $state.loaded();
+                        } else {
+                            $state.complete();
+                        }
                         
-            //         })
-            //         //this.list = this.list.concat(temp);
-            //         $state.loaded();
-            //     }, 1000);
-            //},
+                    })
+                    $state.loaded();
+                }, 1000);
+            },
         },
         mounted() {
             console.log('Component mounted.')
-        },
-        created() {
-            this.loadProducts();
-        },
-        // components: {
-        //     InfiniteLoading,
-        // },
+        }
     }
 </script>

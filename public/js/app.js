@@ -2419,6 +2419,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-infinite-loading */ "./node_modules/vue-infinite-loading/dist/vue-infinite-loading.js");
+/* harmony import */ var vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2458,62 +2460,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-// import InfiniteLoading from 'vue-infinite-loading';
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      products: []
+      products: [],
+      page: 1
     };
   },
   methods: {
-    loadProducts: function loadProducts() {
+    infiniteHandler: function infiniteHandler($state) {
       var _this = this;
 
-      axios.get('MOCK_DATA.json').then(function (_ref) {
-        var data = _ref.data;
-        console.log(data);
-        _this.products = data;
-      });
-    } // infiniteHandler(){
-    //     console.log('loading infinite...')
-    //     axios.get('MOCK_DATA.json').then(({ data }) => {
-    //         //console.log(data);
-    //         if(data.length){
-    //             this.products.push(data);
-    //             console.log('products loaded');
-    //         }
-    //     })
-    // },
-    // infiniteHandler($state) {
-    //     setTimeout(() => {
-    //         console.log('loading infinite...')
-    //         axios.get('MOCK_DATA.json').then(({ data }) => {
-    //             //console.log(data);
-    //             if(data.length){
-    //                 const temp = [];
-    //                 for(let i in data){
-    //                     temp.push(data[i]);
-    //                 }
-    //                 //this.products = this.products.concat(temp);
-    //                 this.products.push(data);
-    //                 console.log(this.products);
-    //             }
-    //         })
-    //         //this.list = this.list.concat(temp);
-    //         $state.loaded();
-    //     }, 1000);
-    //},
+      setTimeout(function () {
+        console.log('loading infinite...');
+        axios.get('api/products', {
+          params: {
+            page: _this.page
+          }
+        }).then(function (_ref) {
+          var data = _ref.data;
+          console.log(data);
 
+          if (data.data.length) {
+            _this.page += 1;
+
+            for (var i = 0; i < data.data.length; i++) {
+              _this.products.push(data.data[i]);
+            }
+
+            $state.loaded();
+          } else {
+            $state.complete();
+          }
+        });
+        $state.loaded();
+      }, 1000);
+    }
   },
   mounted: function mounted() {
     console.log('Component mounted.');
-  },
-  created: function created() {
-    this.loadProducts();
-  } // components: {
-  //     InfiniteLoading,
-  // },
-
+  }
 });
 
 /***/ }),
@@ -65002,47 +64989,57 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container mb-5" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "container" }, [
-      _vm._m(1),
+  return _c(
+    "div",
+    { staticClass: "container mb-5" },
+    [
+      _vm._m(0),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "row" },
-        _vm._l(_vm.products, function(product) {
-          return _c("div", { key: product.id, staticClass: "col-md-4" }, [
-            _c(
-              "div",
-              { staticClass: "card", staticStyle: { width: "18rem" } },
-              [
-                _c("img", {
-                  staticClass: "card-img-top",
-                  attrs: { src: "https://via.placeholder.com/200", alt: "..." }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
-                  _c("h5", { staticClass: "card-title" }, [
-                    _vm._v(_vm._s(product.title))
-                  ]),
+      _c("div", { staticClass: "container" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "row" },
+          _vm._l(_vm.products, function(product) {
+            return _c("div", { key: product.id, staticClass: "col-md-4" }, [
+              _c(
+                "div",
+                { staticClass: "card", staticStyle: { width: "18rem" } },
+                [
+                  _c("img", {
+                    staticClass: "card-img-top",
+                    attrs: {
+                      src: "https://dummyimage.com/150x150/0ff573/fff",
+                      alt: "..."
+                    }
+                  }),
                   _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v("$" + _vm._s(product.price))
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(2, true),
-                  _vm._v(" "),
-                  _vm._m(3, true)
-                ])
-              ]
-            )
-          ])
-        }),
-        0
-      )
-    ])
-  ])
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("h5", { staticClass: "card-title" }, [
+                      _vm._v(_vm._s(product.title))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "card-text" }, [
+                      _vm._v("$" + _vm._s(product.current_price))
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(2, true),
+                    _vm._v(" "),
+                    _vm._m(3, true)
+                  ])
+                ]
+              )
+            ])
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c("infinite-loading", { on: { infinite: _vm.infiniteHandler } })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
