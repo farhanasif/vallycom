@@ -74,11 +74,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
           @endauth
         </div>
       </li>
+      @can('isAdmin')
+      @else
       <li class="nav-item drodown">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal">
           <i class="fas fa-cart-arrow-down ml-3 mr-1 red"></i>
         </a>
       </li>
+      @endcan
     </ul>
     </div>
     
@@ -393,6 +396,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  <div class="modal" tabindex="-1" role="dialog" id="exampleModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">My Cart</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Checkout</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Main Footer -->
   <footer class="main-footer no-print">

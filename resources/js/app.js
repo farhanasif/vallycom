@@ -132,6 +132,10 @@ const app = new Vue({
 
         printme() {
             window.print();
+        },
+
+        callCartModal(){
+            console.log('Modal Called');
         }
     }
   }).$mount('#app')

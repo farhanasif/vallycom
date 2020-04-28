@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col-md-4" v-for="product in products" :key="product.id">
                     <div class="card" style="width: 18rem;">
-                        <img v-bind:src="randomColor()" class="card-img-top" alt="...">
+                        <img :src="randomColor()" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{product.title}}</h5>
                             <p class="card-text">${{product.current_price}}</p>
@@ -73,7 +73,7 @@
             },
 
             randomColor : function(){
-                const colors = ["B42506", "B4A406", "09B406", "063BB4", "D432EA", "EA3232"];
+                const colors = ["B42506", "B4A406", "09B406", "063BB4"];
                 const randomColor = colors[Math.floor(Math.random() * colors.length)];
                 const url = "https://dummyimage.com/150x150/"+randomColor+"/fff";
                 return url;

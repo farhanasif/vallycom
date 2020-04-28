@@ -2498,7 +2498,7 @@ __webpack_require__.r(__webpack_exports__);
       }, 1000);
     },
     randomColor: function randomColor() {
-      var colors = ["B42506", "B4A406", "09B406", "063BB4", "D432EA", "EA3232"];
+      var colors = ["B42506", "B4A406", "09B406", "063BB4"];
       var randomColor = colors[Math.floor(Math.random() * colors.length)];
       var url = "https://dummyimage.com/150x150/" + randomColor + "/fff";
       return url;
@@ -82703,6 +82703,9 @@ var app = new Vue({
     }, 1000),
     printme: function printme() {
       window.print();
+    },
+    callCartModal: function callCartModal() {
+      console.log('Modal Called');
     }
   }
 }).$mount('#app');
