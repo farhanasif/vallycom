@@ -2496,6 +2496,12 @@ __webpack_require__.r(__webpack_exports__);
         });
         $state.loaded();
       }, 1000);
+    },
+    randomColor: function randomColor() {
+      var colors = ["B42506", "B4A406", "09B406", "063BB4", "D432EA", "EA3232"];
+      var randomColor = colors[Math.floor(Math.random() * colors.length)];
+      var url = "https://dummyimage.com/150x150/" + randomColor + "/fff";
+      return url;
     }
   },
   mounted: function mounted() {
@@ -65009,10 +65015,7 @@ var render = function() {
                 [
                   _c("img", {
                     staticClass: "card-img-top",
-                    attrs: {
-                      src: "https://dummyimage.com/150x150/0ff573/fff",
-                      alt: "..."
-                    }
+                    attrs: { src: _vm.randomColor(), alt: "..." }
                   }),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-body" }, [

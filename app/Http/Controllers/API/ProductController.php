@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::latest()->paginate(12);
+        return Product::paginate(12);
     }
 
     /**
