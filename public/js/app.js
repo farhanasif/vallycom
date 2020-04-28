@@ -2502,10 +2502,17 @@ __webpack_require__.r(__webpack_exports__);
       var randomColor = colors[Math.floor(Math.random() * colors.length)];
       var url = "https://dummyimage.com/150x150/" + randomColor + "/fff";
       return url;
+    },
+    addToCart: function addToCart() {
+      this.$parent.addvalue();
+      console.log('cart value: ' + this.$parent.cart);
     }
   },
   mounted: function mounted() {
     console.log('Component mounted.');
+  },
+  created: function created() {
+    console.log('cart value: ' + this.$parent.cart);
   }
 });
 
@@ -65029,7 +65036,25 @@ var render = function() {
                     _vm._v(" "),
                     _vm._m(2, true),
                     _vm._v(" "),
-                    _vm._m(3, true)
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.addToCart()
+                          }
+                        }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "nav-icon fas fa-cart-plus white mr-1"
+                        }),
+                        _vm._v("Add to Cart")
+                      ]
+                    )
                   ])
                 ]
               )
@@ -65115,15 +65140,6 @@ var staticRenderFns = [
     return _c("a", { staticClass: "btn btn-warning", attrs: { href: "#" } }, [
       _c("i", { staticClass: "nav-icon fas fa-heart black mr-1" }),
       _vm._v("Wishlist")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "btn btn-primary", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "nav-icon fas fa-cart-plus white mr-1" }),
-      _vm._v("Add to Cart")
     ])
   }
 ]
@@ -82660,17 +82676,6 @@ var routes = [{
   component: __webpack_require__(/*! ./components/404.vue */ "./resources/js/components/404.vue")["default"]
 }];
 /**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
-/**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
@@ -82695,7 +82700,8 @@ Vue.component('not-found', __webpack_require__(/*! ./components/404.vue */ "./re
 var app = new Vue({
   router: router,
   data: {
-    search: ''
+    search: '',
+    cart: 0
   },
   methods: {
     searchit: _.debounce(function () {
@@ -82706,6 +82712,12 @@ var app = new Vue({
     },
     callCartModal: function callCartModal() {
       console.log('Modal Called');
+    },
+    addvalue: function addvalue() {
+      this.cart += 1;
+    },
+    openModal: function openModal() {
+      $('#cartModal').modal('show');
     }
   }
 }).$mount('#app');

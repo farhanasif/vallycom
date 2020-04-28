@@ -77,7 +77,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       @can('isAdmin')
       @else
       <li class="nav-item drodown">
-        <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal">
+        <a class="nav-link" href="#" @click="openModal">
           <i class="fas fa-cart-arrow-down ml-3 mr-1 red"></i>
         </a>
       </li>
@@ -396,7 +396,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <div class="modal" tabindex="-1" role="dialog" id="exampleModal">
+  <div class="modal" tabindex="-1" role="dialog" id="cartModal">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -406,7 +406,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </button>
         </div>
         <div class="modal-body">
-          <p>Modal body text goes here.</p>
+          <p>cart Value is: @{{this.cart}}</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
