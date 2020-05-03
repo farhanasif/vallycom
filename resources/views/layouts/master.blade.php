@@ -406,7 +406,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </button>
         </div>
         <div class="modal-body">
-          <p>cart Value is: @{{this.cart}}</p>
+        <div v-for="(cat, n) in cats">
+          <p>
+            <span class="cat">@{{ cat.name }}</span>
+            <button @click="removeCat(n)">Remove</button>
+          </p>
+        </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

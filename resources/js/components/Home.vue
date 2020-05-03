@@ -27,7 +27,7 @@
                             <h5 class="card-title">{{product.title}}</h5>
                             <p class="card-text">${{product.current_price}}</p>
                             <a href="#" class="btn btn-warning"><i class="nav-icon fas fa-heart black mr-1"></i>Wishlist</a>
-                            <a href="#" class="btn btn-primary" @click.prevent="addToCart()"><i class="nav-icon fas fa-cart-plus white mr-1"></i>Add to Cart</a>
+                            <a href="#" class="btn btn-primary" @click.prevent="addToCart(product.title)"><i class="nav-icon fas fa-cart-plus white mr-1"></i>Add to Cart</a>
                         </div>
                     </div>
                 </div>
@@ -50,13 +50,13 @@
         methods: {
             infiniteHandler($state) {
                 setTimeout(() => {
-                    console.log('loading infinite...')
+                    //console.log('loading infinite...')
                     axios.get('api/products',{
                         params: {
                             page: this.page,
                         },
                     }).then(({ data }) => {
-                        console.log(data);
+                        //console.log(data);
                         if (data.data.length) {
                             this.page += 1;
                             for(let i = 0; i<data.data.length; i++){
@@ -69,7 +69,7 @@
                         
                     })
                     $state.loaded();
-                }, 1000);
+                }, 2000);
             },
 
             randomColor : function(){
@@ -79,13 +79,13 @@
                 return url;
             },
 
-            addToCart() {
-                this.$parent.addvalue();
-                console.log('cart value: '+this.$parent.cart);
+            addToCart(title) {
+                this.$parent.addvalue(title);
+                //console.log('cart value: '+this.$parent.cart);
             }
         },
         mounted() {
-            console.log('Component mounted.')
+            //console.log('Component mounted.')
         },
         created() {
             console.log('cart value: '+this.$parent.cart);

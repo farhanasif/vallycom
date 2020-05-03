@@ -112,6 +112,8 @@ const app = new Vue({
     data:{
         search: '',
         cart: 0,
+        cats: [],
+        newcat: null,
     },
     methods:{
         searchit: _.debounce(() => {
@@ -126,12 +128,37 @@ const app = new Vue({
             console.log('Modal Called');
         },
 
-        addvalue(){
+        addvalue(title){
+            let newcat = {
+                name: title
+            }
+            this.cats.push(newcat);
+            localStorage.setItem('cats', JSON.stringify(this.cats));
             this.cart += 1;
+        },
+
+        removeCat(n){
+            console.log(n);
+            this.cats.splice(n, 1);
+            localStorage.setItem('cats', JSON.stringify(this.cats));
+            console.log(this.cats);
         },
 
         openModal() {
             $('#cartModal').modal('show');
         }
     },
+    mounted() {
+        if (localStorage.getItem('cats')) {
+            try {
+                this.cats = JSON.parse(localStorage.getItem('cats'));
+                console.log(JSON.stringify(this.cats));
+            } catch(e) {
+                localStorage.removeItem('cats');
+            }
+        }
+        else{
+            console.log('no cats found')
+        }
+    }
   }).$mount('#app')

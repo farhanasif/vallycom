@@ -2473,15 +2473,15 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       setTimeout(function () {
-        console.log('loading infinite...');
+        //console.log('loading infinite...')
         axios.get('api/products', {
           params: {
             page: _this.page
           }
         }).then(function (_ref) {
           var data = _ref.data;
-          console.log(data);
 
+          //console.log(data);
           if (data.data.length) {
             _this.page += 1;
 
@@ -2495,7 +2495,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
         $state.loaded();
-      }, 1000);
+      }, 2000);
     },
     randomColor: function randomColor() {
       var colors = ["B42506", "B4A406", "09B406", "063BB4"];
@@ -2503,13 +2503,11 @@ __webpack_require__.r(__webpack_exports__);
       var url = "https://dummyimage.com/150x150/" + randomColor + "/fff";
       return url;
     },
-    addToCart: function addToCart() {
-      this.$parent.addvalue();
-      console.log('cart value: ' + this.$parent.cart);
+    addToCart: function addToCart(title) {
+      this.$parent.addvalue(title); //console.log('cart value: '+this.$parent.cart);
     }
   },
-  mounted: function mounted() {
-    console.log('Component mounted.');
+  mounted: function mounted() {//console.log('Component mounted.')
   },
   created: function created() {
     console.log('cart value: ' + this.$parent.cart);
@@ -65044,7 +65042,7 @@ var render = function() {
                         on: {
                           click: function($event) {
                             $event.preventDefault()
-                            return _vm.addToCart()
+                            return _vm.addToCart(product.title)
                           }
                         }
                       },
@@ -82701,7 +82699,9 @@ var app = new Vue({
   router: router,
   data: {
     search: '',
-    cart: 0
+    cart: 0,
+    cats: [],
+    newcat: null
   },
   methods: {
     searchit: _.debounce(function () {
@@ -82713,11 +82713,34 @@ var app = new Vue({
     callCartModal: function callCartModal() {
       console.log('Modal Called');
     },
-    addvalue: function addvalue() {
+    addvalue: function addvalue(title) {
+      var newcat = {
+        name: title
+      };
+      this.cats.push(newcat);
+      localStorage.setItem('cats', JSON.stringify(this.cats));
       this.cart += 1;
+    },
+    removeCat: function removeCat(n) {
+      console.log(n);
+      this.cats.splice(n, 1);
+      localStorage.setItem('cats', JSON.stringify(this.cats));
+      console.log(this.cats);
     },
     openModal: function openModal() {
       $('#cartModal').modal('show');
+    }
+  },
+  mounted: function mounted() {
+    if (localStorage.getItem('cats')) {
+      try {
+        this.cats = JSON.parse(localStorage.getItem('cats'));
+        console.log(JSON.stringify(this.cats));
+      } catch (e) {
+        localStorage.removeItem('cats');
+      }
+    } else {
+      console.log('no cats found');
     }
   }
 }).$mount('#app');
