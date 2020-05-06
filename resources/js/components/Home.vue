@@ -27,7 +27,7 @@
                             <h5 class="card-title">{{product.title}}</h5>
                             <p class="card-text">${{product.current_price}}</p>
                             <a href="#" class="btn btn-warning"><i class="nav-icon fas fa-heart black mr-1"></i>Wishlist</a>
-                            <a href="#" class="btn btn-primary" @click.prevent="addToCart(product.title)"><i class="nav-icon fas fa-cart-plus white mr-1"></i>Add to Cart</a>
+                            <a href="#" class="btn btn-primary" @click.prevent="addToCart(product)"><i class="nav-icon fas fa-cart-plus white mr-1"></i>Add to Cart</a>
                         </div>
                     </div>
                 </div>
@@ -79,8 +79,8 @@
                 return url;
             },
 
-            addToCart(title) {
-                this.$parent.addvalue(title);
+            addToCart(product) {
+                this.$parent.addvalue(product);
                 //console.log('cart value: '+this.$parent.cart);
             }
         },

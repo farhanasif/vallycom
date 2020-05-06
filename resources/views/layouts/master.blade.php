@@ -406,9 +406,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </button>
         </div>
         <div class="modal-body">
-        <div v-for="(cat, n) in cats">
+        <div v-for="(item, n) in cart">
           <p>
-            <span class="cat">@{{ cat.name }}</span>
+            <span class="cat">@{{ item.title }}</span>
             <button @click="removeCat(n)">Remove</button>
           </p>
         </div>

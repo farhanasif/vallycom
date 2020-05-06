@@ -2503,8 +2503,8 @@ __webpack_require__.r(__webpack_exports__);
       var url = "https://dummyimage.com/150x150/" + randomColor + "/fff";
       return url;
     },
-    addToCart: function addToCart(title) {
-      this.$parent.addvalue(title); //console.log('cart value: '+this.$parent.cart);
+    addToCart: function addToCart(product) {
+      this.$parent.addvalue(product); //console.log('cart value: '+this.$parent.cart);
     }
   },
   mounted: function mounted() {//console.log('Component mounted.')
@@ -65042,7 +65042,7 @@ var render = function() {
                         on: {
                           click: function($event) {
                             $event.preventDefault()
-                            return _vm.addToCart(product.title)
+                            return _vm.addToCart(product)
                           }
                         }
                       },
@@ -82699,9 +82699,10 @@ var app = new Vue({
   router: router,
   data: {
     search: '',
-    cart: 0,
     cats: [],
-    newcat: null
+    newcat: null,
+    cart: [],
+    item: null
   },
   methods: {
     searchit: _.debounce(function () {
@@ -82713,13 +82714,20 @@ var app = new Vue({
     callCartModal: function callCartModal() {
       console.log('Modal Called');
     },
-    addvalue: function addvalue(title) {
-      var newcat = {
-        name: title
+    addvalue: function addvalue(product) {
+      console.log(product);
+      var item = {
+        title: product.title,
+        quantity: 1,
+        price: product.current_price
       };
-      this.cats.push(newcat);
-      localStorage.setItem('cats', JSON.stringify(this.cats));
-      this.cart += 1;
+      this.cart.push(item);
+      localStorage.setItem('cart', JSON.stringify(this.cart)); // let newcat = {
+      //     name: title
+      // }
+      // this.cats.push(newcat);
+      // localStorage.setItem('cats', JSON.stringify(this.cats));
+      // this.cart += 1;
     },
     removeCat: function removeCat(n) {
       console.log(n);
@@ -82732,15 +82740,15 @@ var app = new Vue({
     }
   },
   mounted: function mounted() {
-    if (localStorage.getItem('cats')) {
+    if (localStorage.getItem('cart')) {
       try {
-        this.cats = JSON.parse(localStorage.getItem('cats'));
-        console.log(JSON.stringify(this.cats));
+        this.cart = JSON.parse(localStorage.getItem('cart'));
+        console.log(JSON.stringify(this.cart));
       } catch (e) {
-        localStorage.removeItem('cats');
+        localStorage.removeItem('cart');
       }
     } else {
-      console.log('no cats found');
+      console.log('no cart found');
     }
   }
 }).$mount('#app');

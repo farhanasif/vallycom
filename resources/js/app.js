@@ -111,9 +111,10 @@ const app = new Vue({
     router,
     data:{
         search: '',
-        cart: 0,
         cats: [],
         newcat: null,
+        cart: [],
+        item: null,
     },
     methods:{
         searchit: _.debounce(() => {
@@ -128,13 +129,22 @@ const app = new Vue({
             console.log('Modal Called');
         },
 
-        addvalue(title){
-            let newcat = {
-                name: title
+        addvalue(product){
+            console.log(product)
+            let item = {
+                title : product.title,
+                quantity: 1,
+                price: product.current_price
             }
-            this.cats.push(newcat);
-            localStorage.setItem('cats', JSON.stringify(this.cats));
-            this.cart += 1;
+
+            this.cart.push(item);
+            localStorage.setItem('cart', JSON.stringify(this.cart));
+            // let newcat = {
+            //     name: title
+            // }
+            // this.cats.push(newcat);
+            // localStorage.setItem('cats', JSON.stringify(this.cats));
+            // this.cart += 1;
         },
 
         removeCat(n){
@@ -149,16 +159,16 @@ const app = new Vue({
         }
     },
     mounted() {
-        if (localStorage.getItem('cats')) {
+        if (localStorage.getItem('cart')) {
             try {
-                this.cats = JSON.parse(localStorage.getItem('cats'));
-                console.log(JSON.stringify(this.cats));
+                this.cart = JSON.parse(localStorage.getItem('cart'));
+                console.log(JSON.stringify(this.cart));
             } catch(e) {
-                localStorage.removeItem('cats');
+                localStorage.removeItem('cart');
             }
         }
         else{
-            console.log('no cats found')
+            console.log('no cart found')
         }
     }
   }).$mount('#app')
