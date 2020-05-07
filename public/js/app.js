@@ -2512,7 +2512,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBP
     newModal: function newModal() {
       this.editmode = false;
       this.form.reset();
-      $("#departmentrModal").modal("show");
+      $("#departmentModal").modal("show");
     },
     editModal: function editModal(department) {
       this.editmode = true;
@@ -2534,7 +2534,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBP
     createDepartment: function createDepartment() {
       var _this3 = this;
 
-      this.form.post("api/department").then(function () {
+      this.form.post("api/store-department").then(function () {
         Fire.$emit("AfterCreate");
         $("#departmentModal").modal("hide");
 
@@ -2582,7 +2582,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBP
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this5.form["delete"]("api/department/" + id).then(function () {
+          _this5.form["delete"]("api/delete-department/" + id).then(function () {
             swal.fire({
               icon: "success",
               title: "Deleted",
@@ -65220,7 +65220,7 @@ var render = function() {
                       _vm._v(
                         "\n                            Add New\n                            "
                       ),
-                      _c("i", { staticClass: "fas fa-user-plus fa-fw" })
+                      _c("i", { staticClass: "fas fa-users-cog fa-fw" })
                     ]
                   )
                 ])

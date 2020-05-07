@@ -30,5 +30,7 @@ Route::get('products','API\ProductController@index');
 
 
 //-------------Departments route----------------//
-
 Route::get('department', 'API\DepartmentController@index');
+Route::get('delete-department/{id}', 'API\DepartmentController@deleteDepartment');
+Route::post('store-department', 'API\DepartmentController@storeDepartment');
+

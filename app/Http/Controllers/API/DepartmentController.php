@@ -11,8 +11,32 @@ class DepartmentController extends Controller
 {
     public function index()
     {
-        return Department::paginate(12);
-    //    $department =  Department::paginate(12);
+        return Department::paginate(8);
     //    dd($department);
     }
+
+    public function storeDepartment(Request $request)
+    {
+        $this->validate($request,[
+            'department_name' => 'required|string|max:191',
+        ]);
+
+        return Department::create([
+            'department_name' => $request['department_name'],
+            'photo' => $request['photo'],
+        ]);
+    }
+
+    public function deleteDepartment($id)
+    {
+        $this->authorize('isAdmin');
+
+        $user = Department::findOrFail($id);
+        // delete the department
+
+        $user->delete();
+
+        return ['message' => 'Department Deleted'];
+    }
+
 }

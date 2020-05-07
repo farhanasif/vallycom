@@ -9,7 +9,7 @@
                     <div class="card-tools">
                         <button class="btn btn-success" @click="newModal">
                             Add New
-                            <i class="fas fa-user-plus fa-fw"></i>
+                            <i class="fas fa-users-cog fa-fw"></i>
                         </button>
                     </div>
                 </div>
@@ -119,7 +119,7 @@ export default {
         newModal() {
             this.editmode = false;
             this.form.reset();
-            $("#departmentrModal").modal("show");
+            $("#departmentModal").modal("show");
         },
         editModal(department) {
             this.editmode = true;
@@ -139,7 +139,7 @@ export default {
         },
         createDepartment() {
             this.form
-                .post("api/department")
+                .post("api/store-department")
                 .then(() => {
                     Fire.$emit("AfterCreate");
                     $("#departmentModal").modal("hide");
@@ -188,7 +188,7 @@ export default {
                     // Send request to the server
                     if (result.value) {
                         this.form
-                            .delete("api/department/" + id)
+                            .delete("api/delete-department/" + id)
                             .then(() => {
                                 swal.fire({
                                     icon: "success",
