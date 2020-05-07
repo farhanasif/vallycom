@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
 use Illuminate\Http\Request;
 
 /*
@@ -26,3 +27,8 @@ Route::put('profile', 'API\UserController@updateProfile');
 Route::get('findUser', 'API\UserController@search');
 //-------------products route----------------//
 Route::get('products','API\ProductController@index');
+
+
+//-------------Departments route----------------//
+
+Route::get('department', 'API\DepartmentController@index');
