@@ -28,7 +28,7 @@
                             <tr v-for="department in departments.data" :key="department.id">
                                 <td>{{department.id}}</td>
                                 <td>{{department.department_name}}</td>
-                                <td>{{department.photo}}</td>
+                                <td><img style="width:100px; height:100px" :src="department.photo" alt="image" /></td>
                                 <td>
                                     <a href="#" @click="editModal(department)">
                                         <i class="fas fa-edit blue"></i>
@@ -138,8 +138,9 @@ export default {
             }
         },
         createDepartment() {
-            this.form
-                .post("api/store-department")
+                let file = e.target.files[0];
+                let reader = new FileReader();
+            this.form.post("api/store-department")
                 .then(() => {
                     Fire.$emit("AfterCreate");
                     $("#departmentModal").modal("hide");
@@ -153,6 +154,10 @@ export default {
                         title: "Department",
                         text: "created successfully!"
                     });
+                    reader.onloadend = (file) => {
+                    this.form.photo = reader.result;
+                }
+                reader.readAsDataURL(file);
                     this.$Progress.finish();
                 })
                 .catch(() => {});
@@ -161,7 +166,7 @@ export default {
             this.$Progress.start();
             // console.log('Editing data');
             this.form
-                .put("api/department/" + this.form.id)
+                .put("api/update-department/" + this.form.id)
                 .then(() => {
                     // success
                     $("#departmentModal").modal("hide");

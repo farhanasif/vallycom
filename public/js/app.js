@@ -2534,6 +2534,8 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBP
     createDepartment: function createDepartment() {
       var _this3 = this;
 
+      var file = e.target.files[0];
+      var reader = new FileReader();
       this.form.post("api/store-department").then(function () {
         Fire.$emit("AfterCreate");
         $("#departmentModal").modal("hide");
@@ -2548,6 +2550,12 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBP
           text: "created successfully!"
         });
 
+        reader.onloadend = function (file) {
+          _this3.form.photo = reader.result;
+        };
+
+        reader.readAsDataURL(file);
+
         _this3.$Progress.finish();
       })["catch"](function () {});
     },
@@ -2556,7 +2564,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBP
 
       this.$Progress.start(); // console.log('Editing data');
 
-      this.form.put("api/department/" + this.form.id).then(function () {
+      this.form.put("api/update-department/" + this.form.id).then(function () {
         // success
         $("#departmentModal").modal("hide");
         swal.fire("Updated!", "Information has been updated.", "success");
@@ -65238,7 +65246,12 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(department.department_name))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(department.photo))]),
+                        _c("td", [
+                          _c("img", {
+                            staticStyle: { width: "100px", height: "100px" },
+                            attrs: { src: department.photo, alt: "image" }
+                          })
+                        ]),
                         _vm._v(" "),
                         _c("td", [
                           _c(
