@@ -72,7 +72,7 @@
                         </div>
                         <div class="form-group">
                             <label>Photo</label>
-                            <input  type="file" name="photo" class="form-control"/>
+                            <input  type="file" name="photo" class="form-control" @change="imagechanged"/>
                         </div>
 
                     </div>
@@ -137,9 +137,20 @@ export default {
                 });
             }
         },
+        imagechanged(e){
+            console.log(e.target.files[0])
+            var filereader = new FileReader()
+
+            filereader.readAsDataURL(e.target.files[0])
+            filereader.onload = (e) =>{
+                this.form.photo = e.target.result
+            }
+
+            console.log(this.form)
+
+        },
         createDepartment() {
-                let file = e.target.files[0];
-                let reader = new FileReader();
+
             this.form.post("api/store-department")
                 .then(() => {
                     Fire.$emit("AfterCreate");
@@ -154,11 +165,6 @@ export default {
                         title: "Department",
                         text: "created successfully!"
                     });
-                    reader.onloadend = (file) => {
-                    this.form.photo = reader.result;
-                }
-                reader.readAsDataURL(file);
-                    this.$Progress.finish();
                 })
                 .catch(() => {});
         },

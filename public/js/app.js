@@ -2531,16 +2531,27 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBP
         });
       }
     },
-    createDepartment: function createDepartment() {
+    imagechanged: function imagechanged(e) {
       var _this3 = this;
 
-      var file = e.target.files[0];
-      var reader = new FileReader();
+      console.log(e.target.files[0]);
+      var filereader = new FileReader();
+      filereader.readAsDataURL(e.target.files[0]);
+
+      filereader.onload = function (e) {
+        _this3.form.photo = e.target.result;
+      };
+
+      console.log(this.form);
+    },
+    createDepartment: function createDepartment() {
+      var _this4 = this;
+
       this.form.post("api/store-department").then(function () {
         Fire.$emit("AfterCreate");
         $("#departmentModal").modal("hide");
 
-        _this3.$swal({
+        _this4.$swal({
           toast: true,
           position: "top-end",
           showConfirmButton: false,
@@ -2549,18 +2560,10 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBP
           title: "Department",
           text: "created successfully!"
         });
-
-        reader.onloadend = function (file) {
-          _this3.form.photo = reader.result;
-        };
-
-        reader.readAsDataURL(file);
-
-        _this3.$Progress.finish();
       })["catch"](function () {});
     },
     updateDepartment: function updateDepartment() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.$Progress.start(); // console.log('Editing data');
 
@@ -2569,15 +2572,15 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBP
         $("#departmentModal").modal("hide");
         swal.fire("Updated!", "Information has been updated.", "success");
 
-        _this4.$Progress.finish();
+        _this5.$Progress.finish();
 
         Fire.$emit("AfterCreate");
       })["catch"](function () {
-        _this4.$Progress.fail();
+        _this5.$Progress.fail();
       });
     },
     deleteDeparment: function deleteDeparment(id) {
-      var _this5 = this;
+      var _this6 = this;
 
       swal.fire({
         title: "Are you sure?",
@@ -2590,7 +2593,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBP
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this5.form["delete"]("api/delete-department/" + id).then(function () {
+          _this6.form["delete"]("api/delete-department/" + id).then(function () {
             swal.fire({
               icon: "success",
               title: "Deleted",
@@ -2609,18 +2612,18 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBP
     console.log("Component mounted.");
   },
   created: function created() {
-    var _this6 = this;
+    var _this7 = this;
 
     Fire.$on("searching", function () {
-      var query = _this6.$parent.search;
+      var query = _this7.$parent.search;
       axios.get("api/findDepartment?q=" + query).then(function (data) {
-        _this6.departments = data.data;
+        _this7.departments = data.data;
       })["catch"](function () {});
     });
     this.loadDepartment(); //setInterval(() => this.loadUser(), 15000);
 
     Fire.$on("AfterCreate", function () {
-      _this6.loadDepartment();
+      _this7.loadDepartment();
     });
   }
 });
@@ -65419,7 +65422,15 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _vm._m(2)
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Photo")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "file", name: "photo" },
+                        on: { change: _vm.imagechanged }
+                      })
+                    ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-footer" }, [
@@ -65508,19 +65519,6 @@ var staticRenderFns = [
       },
       [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", [_vm._v("Photo")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "file", name: "photo" }
-      })
-    ])
   }
 ]
 render._withStripped = true
