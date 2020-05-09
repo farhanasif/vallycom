@@ -36,3 +36,5 @@ Route::post('edit-department/{id}', 'API\DepartmentController@editDepartment');
 Route::put('update-department/{id}', 'API\DepartmentController@updateDepartment');
 Route::delete('delete-department/{id}', 'API\DepartmentController@deleteDepartment');
 
+//-------------Categories route----------------//
+Route::get('category', 'API\CategoryController@index');
