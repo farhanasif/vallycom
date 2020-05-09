@@ -16,10 +16,10 @@ import swal from 'sweetalert2'
 window.swal = swal;
 
 const toast = swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
 });
 
 window.toast = toast;
@@ -44,9 +44,9 @@ Vue.use(VueRouter);
 import VueProgressBar from 'vue-progressbar'
 
 Vue.use(VueProgressBar, {
-  color: 'rgb(143, 255, 199)',
-  failedColor: 'red',
-  height: '2px'
+    color: 'rgb(143, 255, 199)',
+    failedColor: 'red',
+    height: '2px'
 })
 
 Vue.component('pagination', require('laravel-vue-pagination'));
@@ -56,16 +56,43 @@ import InfiniteLoading from 'vue-infinite-loading';
 Vue.use(InfiniteLoading);
 
 
-const routes = [
-    { path: '/', component: require('./components/Home.vue').default },
-    { path: '/dashboard', component: require('./components/Dashboard.vue').default },
-    { path: '/developer', component: require('./components/Developer.vue').default },
-    { path: '/profile', component: require('./components/Profile.vue').default },
-    { path: '/users', component: require('./components/Users.vue').default },
-    { path: '/invoice', component: require('./components/Invoice.vue').default },
-    { path: '/department', component: require('./components/Department.vue').default },
-    { path: '*', component: require('./components/404.vue').default }
-  ]
+const routes = [{
+        path: '/',
+        component: require('./components/Home.vue').default
+    },
+    {
+        path: '/dashboard',
+        component: require('./components/Dashboard.vue').default
+    },
+    {
+        path: '/developer',
+        component: require('./components/Developer.vue').default
+    },
+    {
+        path: '/profile',
+        component: require('./components/Profile.vue').default
+    },
+    {
+        path: '/users',
+        component: require('./components/Users.vue').default
+    },
+    {
+        path: '/invoice',
+        component: require('./components/Invoice.vue').default
+    },
+    {
+        path: '/department',
+        component: require('./components/Department.vue').default
+    },
+    {
+        path: '/categories',
+        component: require('./components/Category.vue').default
+    },
+    {
+        path: '*',
+        component: require('./components/404.vue').default
+    }
+]
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -78,15 +105,15 @@ const router = new VueRouter({
     routes // short for `routes: routes`
 });
 
-Vue.filter('upText', function(text){
+Vue.filter('upText', function (text) {
     return text.charAt(0).toUpperCase() + text.slice(1)
 });
 
-Vue.filter('myDate',function(created){
+Vue.filter('myDate', function (created) {
     return moment(created).format('MMMM Do YYYY');
 });
 
-window.Fire =  new Vue();
+window.Fire = new Vue();
 
 Vue.component(
     'passport-clients',
@@ -110,26 +137,26 @@ Vue.component(
 
 const app = new Vue({
     router,
-    data:{
+    data: {
         search: '',
         cart: 0,
         cats: [],
         newcat: null,
     },
-    methods:{
+    methods: {
         searchit: _.debounce(() => {
             Fire.$emit('searching');
-        },1000),
+        }, 1000),
 
         printme() {
             window.print();
         },
 
-        callCartModal(){
+        callCartModal() {
             console.log('Modal Called');
         },
 
-        addvalue(title){
+        addvalue(title) {
             let newcat = {
                 name: title
             }
@@ -138,7 +165,7 @@ const app = new Vue({
             this.cart += 1;
         },
 
-        removeCat(n){
+        removeCat(n) {
             console.log(n);
             this.cats.splice(n, 1);
             localStorage.setItem('cats', JSON.stringify(this.cats));
@@ -154,12 +181,11 @@ const app = new Vue({
             try {
                 this.cats = JSON.parse(localStorage.getItem('cats'));
                 console.log(JSON.stringify(this.cats));
-            } catch(e) {
+            } catch (e) {
                 localStorage.removeItem('cats');
             }
-        }
-        else{
+        } else {
             console.log('no cats found')
         }
     }
-  }).$mount('#app')
+}).$mount('#app')

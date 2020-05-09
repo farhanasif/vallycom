@@ -36,3 +36,11 @@ Route::post('edit-department/{id}', 'API\DepartmentController@editDepartment');
 Route::post('update-department/{id}', 'API\DepartmentController@updateDepartment');
 Route::delete('delete-department/{id}', 'API\DepartmentController@deleteDepartment');
 
+// Route::apiResources([
+//     'categories' => 'API\CategoryController'
+// ]);
+Route::get('categories', 'API\CategoryController@index');
+Route::post('store-department', 'API\CategoryController@store');
+Route::post('edit-department/{id}', 'API\CategoryController@edit');
+Route::post('update-department/{id}', 'API\CategoryController@update');
+Route::delete('delete-department/{id}', 'API\CategoryController@delete');
