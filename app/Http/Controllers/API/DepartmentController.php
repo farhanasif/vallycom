@@ -41,23 +41,44 @@ class DepartmentController extends Controller
         ]);
     }
 
-    public function editDepartment($id)
-    {
-        // return Department::findOrFail($id);
+    // public function editDepartment($id)
+    // {
+    //     // return Department::findOrFail($id);
 
-        dd(Department::findOrFail($id));
-    }
+    //     dd(Department::findOrFail($id));
+    // }
 
     public function updateDepartment(Request $request,$id)
     {
-        $user = Department::findOrFail($id);
+        $department = Department::findOrFail($id);
 
         $this->validate($request,[
             'department_name' => 'required|string|max:191',
-            'photo' => 'required|mimes:jpeg,jpg,png'
+            // 'photo' => 'required|mimes:jpeg,jpg,png'
         ]);
 
-        $user->update($request->all());
+        $currentPhoto = $department->photo;
+
+
+        if($request->photo != $currentPhoto){
+            $name = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
+
+            \Image::make($request->photo)->save(public_path('/').$name);
+            $request->merge(['photo' => $name]);
+
+            $departmentPhoto = public_path('/').$currentPhoto;
+            $updatephoto = '/'.$currentPhoto;
+            if(file_exists($departmentPhoto)){
+                @unlink($departmentPhoto);
+            }
+
+        }
+        // $department = Department::findOrFail($id);
+        // $department->department_name = $request->department_name;
+        // $department->photo = $updatephoto;
+        // $department->save;
+
+        $department->update($request->all());
         return ['message' => 'Updated the department info'];
     }
 
