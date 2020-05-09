@@ -149,7 +149,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="javascript:void(0)" class="nav-link">
               <i class="nav-icon fas fa-briefcase teal"></i>
               <p>
                 Master Data

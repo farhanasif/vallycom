@@ -30,13 +30,14 @@ class DepartmentController extends Controller
 
             $fileName = str_random().'.'.$extention;
 
-            $path = public_path().'/'.$fileName;
+            $path = public_path().'/img/master'.$fileName;
             file_put_contents($path, $decoded);
+            $file = '/img/master'.$fileName;
 
 
         return Department::create([
             'department_name' => $request['department_name'],
-            'photo' => $fileName,
+            'photo' => $file,
         ]);
     }
 
