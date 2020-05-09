@@ -17,14 +17,7 @@ class DepartmentController extends Controller
 
     public function storeDepartment(Request $request)
     {
-        // $this->validate($request,[
-        //     'department_name' => 'required|string|max:191',
-        // ]);
 
-        // $name = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
-
-        // \Image::make($request->photo)->save(public_path('img/master/').$name);
-        // $request->merge(['photo' => $name]);
             $exploded = explode(',',$request->photo);
 
             $decoded = base64_decode($exploded[1]);
