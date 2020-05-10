@@ -9,7 +9,7 @@
             <div class="card-tools">
               <button class="btn btn-success" @click="newModal">
                 Add New Category
-                <i class="fas fa-user-plus fa-fw"></i>
+                <i class="fas fa-list-alt fa-fw"></i>
               </button>
             </div>
           </div>
@@ -27,18 +27,20 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="category in categories.data" :key="category.id">
-                  <td>{{category.id}}</td>
-                  <td>{{category.departmentName}}</td>
-                  <td>{{category.categoryName}}</td>
-                  <td></td>
+                <tr v-for="category in categories.data" :key="category.category_id">
+                  <td>{{category.category_id}}</td>
+                  <td>{{category.department_name}}</td>
+                  <td>{{category.category_name}}</td>
+                  <td>
+                    <img style="width:40px; height:40px" :src="category.photo" alt="image" />
+                  </td>
                   <td>{{category.created_at | myDate}}</td>
                   <td>
                     <a href="#" @click="editModal(category)">
                       <i class="fas fa-edit blue"></i>
                     </a>
                     |
-                    <a href="#" @click="deleteUser(category.id)">
+                    <a href="#" @click="deleteCategory(category.category_id)">
                       <i class="fas fa-trash red"></i>
                     </a>
                   </td>
@@ -79,29 +81,36 @@
               <div class="form-group">
                 <label>Select Department Name</label>
                 <select
-                  name="departmentName"
-                  v-model="form.departmentName"
-                  id="text"
+                  name="department_id"
+                  v-model="form.department_id"
+                  id="department_id"
                   class="form-control"
                   :class="{ 'is-invalid': form.errors.has('text') }"
                 >
-                  <option value>Select User Role</option>
-                  <option value="admin">Admin</option>
-                  <option value="user">Standard User</option>
-                  <option value="author">Author</option>
+                  <option value>-- select Department --</option>
+                  <option
+                    v-for="department in departments"
+                    :key="department.id"
+                    v-bind:value="department.id"
+                    v-text="department.department_name"
+                  ></option>
                 </select>
-                <has-error :form="form" field="departmentName"></has-error>
+                <has-error :form="form" field="department_id"></has-error>
               </div>
               <div class="form-group">
                 <label>Category Name</label>
                 <input
-                  v-model="form.name"
+                  v-model="form.category_name"
                   type="text"
-                  name="categoryName"
+                  name="category_name"
                   class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('categoryName') }"
+                  :class="{ 'is-invalid': form.errors.has('category_name') }"
                 />
                 <has-error :form="form" field="categoryName"></has-error>
+              </div>
+              <div class="form-group">
+                <label>Photo</label>
+                <input type="file" name="photo" class="form-control" @change="photoUp" />
               </div>
             </div>
             <div class="modal-footer">
@@ -127,13 +136,12 @@ export default {
     return {
       editmode: false,
       categories: {},
+      departments: {},
       form: new Form({
-        id: "",
-        departmentName: "",
-        departmenId: "",
-        categoryName: "",
-        photo: "",
-        created_at: ""
+        category_id: "",
+        department_id: "",
+        category_name: "",
+        photo: ""
       })
     };
   },
@@ -143,6 +151,7 @@ export default {
         this.categories = response.data;
       });
     },
+
     newModal() {
       this.editmode = false;
       this.form.reset();
@@ -154,7 +163,7 @@ export default {
       $("#categoryModal").modal("show");
       this.form.fill(category);
     },
-    loadUser() {
+    loadCategory() {
       //load usrs
       if (this.$gate.isAdminOrAuthor()) {
         axios.get("api/category").then(({ data }) => {
@@ -162,7 +171,15 @@ export default {
         });
       }
     },
-    createUser() {
+    loadGetDepartment() {
+      //load usrs
+      if (this.$gate.isAdminOrAuthor()) {
+        axios.get("api/getDepartment").then(({ data }) => {
+          this.departments = data;
+        });
+      }
+    },
+    createCategory() {
       this.form
         .post("api/category")
         .then(() => {
@@ -184,9 +201,9 @@ export default {
     },
     updateCategory() {
       this.$Progress.start();
-      // console.log('Editing data');
+
       this.form
-        .put("api/category/" + this.form.id)
+        .put("api/category/" + this.form.category_id)
         .then(() => {
           // success
           $("#categoryModal").modal("hide");
@@ -213,7 +230,7 @@ export default {
           // Send request to the server
           if (result.value) {
             this.form
-              .delete("api/category/" + id)
+              .delete("api/destroy-Category/" + id)
               .then(() => {
                 swal.fire({
                   icon: "success",
@@ -228,8 +245,21 @@ export default {
               });
           }
         });
+    },
+    getDepartment() {
+      axios.get("api/getDepartment").then(response => {
+        this.departments = response.data.departments;
+      });
+    },
+    photoUp(e) {
+      var filereader = new FileReader();
+      filereader.readAsDataURL(e.target.files[0]);
+      filereader.onload = e => {
+        this.form.photo = e.target.result;
+      };
     }
   },
+
   mounted() {
     console.log("Component mounted.");
   },
@@ -243,10 +273,12 @@ export default {
         })
         .catch(() => {});
     });
-    this.loadUser();
-    //setInterval(() => this.loadUser(), 15000);
+    this.loadCategory();
+    this.loadGetDepartment();
+    //setInterval(() => this.loadCategory(), 15000);
     Fire.$on("AfterCreate", () => {
-      this.loadUser();
+      this.loadCategory();
+      this.loadGetDepartment();
     });
   }
 };
