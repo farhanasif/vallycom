@@ -157,6 +157,9 @@ const app = new Vue({
 
         removeCart(n){
             console.log(n);
+            this.cart.splice(n, 1);
+            localStorage.setItem('cart', JSON.stringify(this.cart));
+            console.log(this.cart);
         },
 
         openModal() {

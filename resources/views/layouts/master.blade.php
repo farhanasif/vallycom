@@ -406,35 +406,41 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </button>
         </div>
         <div class="modal-body">
-        <table class="table table-bordered" v-show="cart">
-            <thead>                  
-              <tr>
-                <th style="width: 10px">#</th>
-                <th>Item</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th style="width: 40px"></th>
-              </tr>
-            </thead>
-            <tbody >
-              <tr v-for="(item, n) in cart">
-                <td>@{{ n+1 }}</td>
-                <td>@{{ item.title }}</td>
-                <td>1</td>
-                <td>@{{ item.price }}</td>
-                <td><button class="badge bg-danger" @click="removeCart(n)">x</button></td>
-              </tr>
-              <tr>
-                <td colspan="3">Total</td>
-                <td><b>@{{ totalItem }}</b></td>
-                <td></td>
-              </tr>
-          </table>
+        <div v-if="cart.length > 0">
+          <table class="table table-bordered" v-show="cart">
+              <thead>                  
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Item</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th style="width: 40px"></th>
+                </tr>
+              </thead>
+              <tbody >
+                <tr v-for="(item, n) in cart">
+                  <td>@{{ n+1 }}</td>
+                  <td>@{{ item.title }}</td>
+                  <td>1</td>
+                  <td>@{{ item.price }}</td>
+                  <td><button class="badge bg-danger" @click="removeCart(n)">x</button></td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td><b>@{{ totalItem }}</b></td>
+                  <td></td>
+                </tr>
+            </table>
+          </div>
+          <div v-else class="callout callout-warning">
+            <h5>Your cart is empty!</h5>
+            <p>Browse our products and enjoy shopping.</p>
+          </div>
           <div></div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Checkout</button>
+          <button type="button" class="btn btn-primary" v-if="cart.length > 0">Checkout</button>
         </div>
       </div>
     </div>
