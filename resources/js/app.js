@@ -154,6 +154,10 @@ const app = new Vue({
             console.log(this.cats);
         },
 
+        removeCart(n){
+            console.log(n);
+        },
+
         openModal() {
             $('#cartModal').modal('show');
         }

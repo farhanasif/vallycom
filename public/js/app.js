@@ -82735,6 +82735,9 @@ var app = new Vue({
       localStorage.setItem('cats', JSON.stringify(this.cats));
       console.log(this.cats);
     },
+    removeCart: function removeCart(n) {
+      console.log(n);
+    },
     openModal: function openModal() {
       $('#cartModal').modal('show');
     }

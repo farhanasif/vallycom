@@ -406,12 +406,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </button>
         </div>
         <div class="modal-body">
-        <div v-for="(item, n) in cart">
-          <p>
-            <span class="cat">@{{ item.title }}</span>
-            <button @click="removeCat(n)">Remove</button>
-          </p>
-        </div>
+        <table class="table table-bordered" v-show="cart">
+            <thead>                  
+              <tr>
+                <th style="width: 10px">#</th>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th style="width: 40px"></th>
+              </tr>
+            </thead>
+            <tbody v-for="(item, n) in cart">
+              <tr>
+                <td>1.</td>
+                <td>@{{ item.title }}</td>
+                <td>1</td>
+                <td>@{{ item.price }}</td>
+                <td><button class="badge bg-danger" @click="removeCart(n)">x</button></td>
+              </tr>
+          </table>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
