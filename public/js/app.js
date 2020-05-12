@@ -2497,10 +2497,10 @@ __webpack_require__.r(__webpack_exports__);
         $state.loaded();
       }, 2000);
     },
-    randomColor: function randomColor() {
-      var colors = ["B42506", "B4A406", "09B406", "063BB4"];
-      var randomColor = colors[Math.floor(Math.random() * colors.length)];
-      var url = "https://dummyimage.com/150x150/" + randomColor + "/fff";
+    getImage: function getImage() {
+      // const colors = ["B42506", "B4A406", "09B406", "063BB4"];
+      // const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      var url = "img/products/vitality-pic.jpg";
       return url;
     },
     addToCart: function addToCart(product) {
@@ -65020,7 +65020,7 @@ var render = function() {
                 [
                   _c("img", {
                     staticClass: "card-img-top",
-                    attrs: { src: _vm.randomColor(), alt: "..." }
+                    attrs: { src: _vm.getImage(), alt: "..." }
                   }),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-body" }, [
