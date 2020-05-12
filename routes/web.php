@@ -10,10 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Auth::routes();
-
 Route::get('/','VcomController@index');
 Route::get('/details/{id}','VcomController@index');
+Auth::routes();
+
+
 //Route::get('{path}','HomeController@index')->where('any', '.*');
 Route::get('/{vue_capture?}', 'HomeController@index')->where('vue_capture', '[\/\w\.-]*');

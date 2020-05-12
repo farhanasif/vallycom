@@ -22,6 +22,7 @@
             <div class="row">
                 <div class="col-md-4" v-for="product in products" :key="product.id">
                     <div class="card" style="width: 18rem;">
+                        <router-link :to="{ name: 'details', params: { id: product.id }}">
                         <img :src="getImage()" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{product.title}}</h5>
@@ -29,6 +30,7 @@
                             <a href="#" class="btn btn-warning"><i class="nav-icon fas fa-heart black mr-1"></i>Wishlist</a>
                             <a href="#" class="btn btn-primary" @click.prevent="addToCart(product)"><i class="nav-icon fas fa-cart-plus white mr-1"></i>Add to Cart</a>
                         </div>
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -56,7 +58,7 @@
                             page: this.page,
                         },
                     }).then(({ data }) => {
-                        //console.log(data);
+                        console.log(data);
                         if (data.data.length) {
                             this.page += 1;
                             for(let i = 0; i<data.data.length; i++){

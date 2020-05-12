@@ -2460,6 +2460,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2480,8 +2482,8 @@ __webpack_require__.r(__webpack_exports__);
           }
         }).then(function (_ref) {
           var data = _ref.data;
+          console.log(data);
 
-          //console.log(data);
           if (data.data.length) {
             _this.page += 1;
 
@@ -2830,49 +2832,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['id'],
+  data: function data() {
+    return {
+      product: []
+    };
+  },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    var _this = this;
+
+    console.log('url : ' + this.url);
+    axios.get('/api/products/' + this.id).then(function (_ref) {
+      var data = _ref.data;
+      _this.product = data;
+      console.log(_this.product);
+    });
   },
   methods: {
     getImage: function getImage() {
@@ -65208,43 +65183,67 @@ var render = function() {
                 "div",
                 { staticClass: "card", staticStyle: { width: "18rem" } },
                 [
-                  _c("img", {
-                    staticClass: "card-img-top",
-                    attrs: { src: _vm.getImage(), alt: "..." }
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("h5", { staticClass: "card-title" }, [
-                      _vm._v(_vm._s(product.title))
-                    ]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "card-text" }, [
-                      _vm._v("$" + _vm._s(product.current_price))
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(2, true),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { href: "#" },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.addToCart(product)
-                          }
-                        }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "nav-icon fas fa-cart-plus white mr-1"
-                        }),
-                        _vm._v("Add to Cart")
-                      ]
-                    )
-                  ])
-                ]
+                  _c(
+                    "router-link",
+                    {
+                      attrs: {
+                        to: { name: "details", params: { id: product.id } }
+                      }
+                    },
+                    [
+                      _c("img", {
+                        staticClass: "card-img-top",
+                        attrs: { src: _vm.getImage(), alt: "..." }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-body" }, [
+                        _c("h5", { staticClass: "card-title" }, [
+                          _vm._v(_vm._s(product.title))
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "card-text" }, [
+                          _vm._v("$" + _vm._s(product.current_price))
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-warning",
+                            attrs: { href: "#" }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "nav-icon fas fa-heart black mr-1"
+                            }),
+                            _vm._v("Wishlist")
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.addToCart(product)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass:
+                                "nav-icon fas fa-cart-plus white mr-1"
+                            }),
+                            _vm._v("Add to Cart")
+                          ]
+                        )
+                      ])
+                    ]
+                  )
+                ],
+                1
               )
             ])
           }),
@@ -65319,15 +65318,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row justify-content-center mt-2 mb-2" }, [
       _c("h3", { staticClass: "h3" }, [_vm._v("... Explore ...")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "btn btn-warning", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "nav-icon fas fa-heart black mr-1" }),
-      _vm._v("Wishlist")
     ])
   }
 ]
@@ -65623,7 +65613,18 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "content", staticStyle: { "min-height": "1419.6px" } },
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.product,
+          expression: "product"
+        }
+      ],
+      staticClass: "content",
+      staticStyle: { "min-height": "1419.6px" }
+    },
     [
       _vm._m(0),
       _vm._v(" "),
@@ -65676,10 +65677,92 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(1)
+              _c("div", { staticClass: "col-12 col-sm-6" }, [
+                _c("h3", { staticClass: "my-3" }, [
+                  _vm._v(_vm._s(_vm.product.title))
+                ]),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(_vm.product.short_description))]),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "bg-gray py-2 px-3 mt-4" }, [
+                  _c("h2", { staticClass: "mb-0" }, [
+                    _vm._v(
+                      "\n                $" +
+                        _vm._s(_vm.product.current_price) +
+                        "\n              "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(3)
+                ]),
+                _vm._v(" "),
+                _vm._m(4),
+                _vm._v(" "),
+                _vm._m(5)
+              ])
             ]),
             _vm._v(" "),
-            _vm._m(2)
+            _c("div", { staticClass: "row mt-4" }, [
+              _vm._m(6),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "tab-content p-3",
+                  attrs: { id: "nav-tabContent" }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "tab-pane fade show active",
+                      attrs: {
+                        id: "product-desc",
+                        role: "tabpanel",
+                        "aria-labelledby": "product-desc-tab"
+                      }
+                    },
+                    [_vm._v(_vm._s(_vm.product.long_description))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "tab-pane fade",
+                      attrs: {
+                        id: "product-comments",
+                        role: "tabpanel",
+                        "aria-labelledby": "product-comments-tab"
+                      }
+                    },
+                    [_vm._v(_vm._s(_vm.product.delivery_description))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "tab-pane fade",
+                      attrs: {
+                        id: "product-rating",
+                        role: "tabpanel",
+                        "aria-labelledby": "product-rating-tab"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        " Cras ut ipsum ornare, aliquam ipsum non, posuere elit. In hac habitasse platea dictumst. Aenean elementum leo augue, id fermentum risus efficitur vel. Nulla iaculis malesuada scelerisque. Praesent vel ipsum felis. Ut molestie, purus aliquam placerat sollicitudin, mi ligula euismod neque, non bibendum nibh neque et erat. Etiam dignissim aliquam ligula, aliquet feugiat nibh rhoncus ut. Aliquam efficitur lacinia lacinia. Morbi ac molestie lectus, vitae hendrerit nisl. Nullam metus odio, malesuada in vehicula at, consectetur nec justo. Quisque suscipit odio velit, at accumsan urna vestibulum a. Proin dictum, urna ut varius consectetur, sapien justo porta lectus, at mollis nisi orci et nulla. Donec pellentesque tortor vel nisl commodo ullamcorper. Donec varius massa at semper posuere. Integer finibus orci vitae vehicula placerat. "
+                      )
+                    ]
+                  )
+                ]
+              )
+            ])
           ])
         ])
       ])
@@ -65695,7 +65778,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "row mb-2" }, [
           _c("div", { staticClass: "col-sm-6" }, [
-            _c("h1", [_vm._v("E-commerce")])
+            _c("h1", [_vm._v("Product Details")])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-sm-6" }, [
@@ -65705,7 +65788,7 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("li", { staticClass: "breadcrumb-item active" }, [
-                _vm._v("E-commerce")
+                _vm._v("Product Details")
               ])
             ])
           ])
@@ -65717,222 +65800,93 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12 col-sm-6" }, [
-      _c("h3", { staticClass: "my-3" }, [
-        _vm._v("LOWA Men’s Renegade GTX Mid Hiking Boots Review")
-      ]),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v(
-          "Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr."
-        )
-      ]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("h4", [_vm._v("Available Colors")]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "btn-group btn-group-toggle",
-          attrs: { "data-toggle": "buttons" }
-        },
-        [
-          _c("label", { staticClass: "btn btn-default text-center active" }, [
-            _c("input", {
-              attrs: {
-                type: "radio",
-                name: "color_option",
-                id: "color_option1",
-                autocomplete: "off",
-                checked: ""
-              }
-            }),
-            _vm._v("\n                Green\n                "),
-            _c("br"),
-            _vm._v(" "),
-            _c("i", { staticClass: "fas fa-circle fa-2x text-green" })
-          ]),
+    return _c("h4", { staticClass: "mt-3" }, [
+      _vm._v("Size "),
+      _c("small", [_vm._v("Please select one")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "btn-group btn-group-toggle",
+        attrs: { "data-toggle": "buttons" }
+      },
+      [
+        _c("label", { staticClass: "btn btn-default text-center" }, [
+          _c("input", {
+            attrs: {
+              type: "radio",
+              name: "color_option",
+              id: "color_option1",
+              autocomplete: "off"
+            }
+          }),
           _vm._v(" "),
-          _c("label", { staticClass: "btn btn-default text-center" }, [
-            _c("input", {
-              attrs: {
-                type: "radio",
-                name: "color_option",
-                id: "color_option2",
-                autocomplete: "off"
-              }
-            }),
-            _vm._v("\n                Blue\n                "),
-            _c("br"),
-            _vm._v(" "),
-            _c("i", { staticClass: "fas fa-circle fa-2x text-blue" })
-          ]),
+          _c("span", { staticClass: "text-xl" }, [_vm._v("S")]),
           _vm._v(" "),
-          _c("label", { staticClass: "btn btn-default text-center" }, [
-            _c("input", {
-              attrs: {
-                type: "radio",
-                name: "color_option",
-                id: "color_option3",
-                autocomplete: "off"
-              }
-            }),
-            _vm._v("\n                Purple\n                "),
-            _c("br"),
-            _vm._v(" "),
-            _c("i", { staticClass: "fas fa-circle fa-2x text-purple" })
-          ]),
-          _vm._v(" "),
-          _c("label", { staticClass: "btn btn-default text-center" }, [
-            _c("input", {
-              attrs: {
-                type: "radio",
-                name: "color_option",
-                id: "color_option4",
-                autocomplete: "off"
-              }
-            }),
-            _vm._v("\n                Red\n                "),
-            _c("br"),
-            _vm._v(" "),
-            _c("i", { staticClass: "fas fa-circle fa-2x text-red" })
-          ]),
-          _vm._v(" "),
-          _c("label", { staticClass: "btn btn-default text-center" }, [
-            _c("input", {
-              attrs: {
-                type: "radio",
-                name: "color_option",
-                id: "color_option5",
-                autocomplete: "off"
-              }
-            }),
-            _vm._v("\n                Orange\n                "),
-            _c("br"),
-            _vm._v(" "),
-            _c("i", { staticClass: "fas fa-circle fa-2x text-orange" })
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("h4", { staticClass: "mt-3" }, [
-        _vm._v("Size "),
-        _c("small", [_vm._v("Please select one")])
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "btn-group btn-group-toggle",
-          attrs: { "data-toggle": "buttons" }
-        },
-        [
-          _c("label", { staticClass: "btn btn-default text-center" }, [
-            _c("input", {
-              attrs: {
-                type: "radio",
-                name: "color_option",
-                id: "color_option1",
-                autocomplete: "off"
-              }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "text-xl" }, [_vm._v("S")]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v("\n                Small\n              ")
-          ]),
-          _vm._v(" "),
-          _c("label", { staticClass: "btn btn-default text-center" }, [
-            _c("input", {
-              attrs: {
-                type: "radio",
-                name: "color_option",
-                id: "color_option1",
-                autocomplete: "off"
-              }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "text-xl" }, [_vm._v("M")]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v("\n                Medium\n              ")
-          ]),
-          _vm._v(" "),
-          _c("label", { staticClass: "btn btn-default text-center" }, [
-            _c("input", {
-              attrs: {
-                type: "radio",
-                name: "color_option",
-                id: "color_option1",
-                autocomplete: "off"
-              }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "text-xl" }, [_vm._v("L")]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v("\n                Large\n              ")
-          ]),
-          _vm._v(" "),
-          _c("label", { staticClass: "btn btn-default text-center" }, [
-            _c("input", {
-              attrs: {
-                type: "radio",
-                name: "color_option",
-                id: "color_option1",
-                autocomplete: "off"
-              }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "text-xl" }, [_vm._v("XL")]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v("\n                Xtra-Large\n              ")
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "bg-gray py-2 px-3 mt-4" }, [
-        _c("h2", { staticClass: "mb-0" }, [
-          _vm._v("\n                $80.00\n              ")
+          _c("br"),
+          _vm._v("\n                200gm\n              ")
         ]),
         _vm._v(" "),
-        _c("h4", { staticClass: "mt-0" }, [
-          _c("small", [_vm._v("Ex Tax: $80.00 ")])
+        _c("label", { staticClass: "btn btn-default text-center" }, [
+          _c("input", {
+            attrs: {
+              type: "radio",
+              name: "color_option",
+              id: "color_option1",
+              autocomplete: "off"
+            }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "text-xl" }, [_vm._v("M")]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v("\n                400gm\n              ")
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "btn btn-default text-center" }, [
+          _c("input", {
+            attrs: {
+              type: "radio",
+              name: "color_option",
+              id: "color_option1",
+              autocomplete: "off"
+            }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "text-xl" }, [_vm._v("L")]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v("\n                1Kg\n              ")
         ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", { staticClass: "mt-0" }, [
+      _c("small", [_vm._v("Ex Tax: $80.00 ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mt-4" }, [
+      _c("div", { staticClass: "btn btn-primary btn-lg btn-flat" }, [
+        _c("i", { staticClass: "fas fa-cart-plus fa-lg mr-2" }),
+        _vm._v(" \n                Add to Cart\n              ")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "mt-4" }, [
-        _c("div", { staticClass: "btn btn-primary btn-lg btn-flat" }, [
-          _c("i", { staticClass: "fas fa-cart-plus fa-lg mr-2" }),
-          _vm._v(" \n                Add to Cart\n              ")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "btn btn-default btn-lg btn-flat" }, [
-          _c("i", { staticClass: "fas fa-heart fa-lg mr-2" }),
-          _vm._v(" \n                Add to Wishlist\n              ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "mt-4 product-share" }, [
-        _c("a", { staticClass: "text-gray", attrs: { href: "#" } }, [
-          _c("i", { staticClass: "fab fa-facebook-square fa-2x" })
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "text-gray", attrs: { href: "#" } }, [
-          _c("i", { staticClass: "fab fa-twitter-square fa-2x" })
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "text-gray", attrs: { href: "#" } }, [
-          _c("i", { staticClass: "fas fa-envelope-square fa-2x" })
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "text-gray", attrs: { href: "#" } }, [
-          _c("i", { staticClass: "fas fa-rss-square fa-2x" })
-        ])
+      _c("div", { staticClass: "btn btn-default btn-lg btn-flat" }, [
+        _c("i", { staticClass: "fas fa-heart fa-lg mr-2" }),
+        _vm._v(" \n                Add to Wishlist\n              ")
       ])
     ])
   },
@@ -65940,119 +65894,82 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mt-4" }, [
-      _c("nav", { staticClass: "w-100" }, [
-        _c(
-          "div",
-          {
-            staticClass: "nav nav-tabs",
-            attrs: { id: "product-tab", role: "tablist" }
-          },
-          [
-            _c(
-              "a",
-              {
-                staticClass: "nav-item nav-link active",
-                attrs: {
-                  id: "product-desc-tab",
-                  "data-toggle": "tab",
-                  href: "#product-desc",
-                  role: "tab",
-                  "aria-controls": "product-desc",
-                  "aria-selected": "true"
-                }
-              },
-              [_vm._v("Description")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "nav-item nav-link",
-                attrs: {
-                  id: "product-comments-tab",
-                  "data-toggle": "tab",
-                  href: "#product-comments",
-                  role: "tab",
-                  "aria-controls": "product-comments",
-                  "aria-selected": "false"
-                }
-              },
-              [_vm._v("Comments")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "nav-item nav-link",
-                attrs: {
-                  id: "product-rating-tab",
-                  "data-toggle": "tab",
-                  href: "#product-rating",
-                  role: "tab",
-                  "aria-controls": "product-rating",
-                  "aria-selected": "false"
-                }
-              },
-              [_vm._v("Rating")]
-            )
-          ]
-        )
+    return _c("div", { staticClass: "mt-4 product-share" }, [
+      _c("a", { staticClass: "text-gray", attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fab fa-facebook-square fa-2x" })
       ]),
       _vm._v(" "),
+      _c("a", { staticClass: "text-gray", attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fab fa-twitter-square fa-2x" })
+      ]),
+      _vm._v(" "),
+      _c("a", { staticClass: "text-gray", attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fas fa-envelope-square fa-2x" })
+      ]),
+      _vm._v(" "),
+      _c("a", { staticClass: "text-gray", attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fas fa-rss-square fa-2x" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("nav", { staticClass: "w-100" }, [
       _c(
         "div",
-        { staticClass: "tab-content p-3", attrs: { id: "nav-tabContent" } },
+        {
+          staticClass: "nav nav-tabs",
+          attrs: { id: "product-tab", role: "tablist" }
+        },
         [
           _c(
-            "div",
+            "a",
             {
-              staticClass: "tab-pane fade show active",
+              staticClass: "nav-item nav-link active",
               attrs: {
-                id: "product-desc",
-                role: "tabpanel",
-                "aria-labelledby": "product-desc-tab"
+                id: "product-desc-tab",
+                "data-toggle": "tab",
+                href: "#product-desc",
+                role: "tab",
+                "aria-controls": "product-desc",
+                "aria-selected": "true"
               }
             },
-            [
-              _vm._v(
-                " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae condimentum erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed posuere, purus at efficitur hendrerit, augue elit lacinia arcu, a eleifend sem elit et nunc. Sed rutrum vestibulum est, sit amet cursus dolor fermentum vel. Suspendisse mi nibh, congue et ante et, commodo mattis lacus. Duis varius finibus purus sed venenatis. Vivamus varius metus quam, id dapibus velit mattis eu. Praesent et semper risus. Vestibulum erat erat, condimentum at elit at, bibendum placerat orci. Nullam gravida velit mauris, in pellentesque urna pellentesque viverra. Nullam non pellentesque justo, et ultricies neque. Praesent vel metus rutrum, tempus erat a, rutrum ante. Quisque interdum efficitur nunc vitae consectetur. Suspendisse venenatis, tortor non convallis interdum, urna mi molestie eros, vel tempor justo lacus ac justo. Fusce id enim a erat fringilla sollicitudin ultrices vel metus. "
-              )
-            ]
+            [_vm._v("Description")]
           ),
           _vm._v(" "),
           _c(
-            "div",
+            "a",
             {
-              staticClass: "tab-pane fade",
+              staticClass: "nav-item nav-link",
               attrs: {
-                id: "product-comments",
-                role: "tabpanel",
-                "aria-labelledby": "product-comments-tab"
+                id: "product-comments-tab",
+                "data-toggle": "tab",
+                href: "#product-comments",
+                role: "tab",
+                "aria-controls": "product-comments",
+                "aria-selected": "false"
               }
             },
-            [
-              _vm._v(
-                " Vivamus rhoncus nisl sed venenatis luctus. Sed condimentum risus ut tortor feugiat laoreet. Suspendisse potenti. Donec et finibus sem, ut commodo lectus. Cras eget neque dignissim, placerat orci interdum, venenatis odio. Nulla turpis elit, consequat eu eros ac, consectetur fringilla urna. Duis gravida ex pulvinar mauris ornare, eget porttitor enim vulputate. Mauris hendrerit, massa nec aliquam cursus, ex elit euismod lorem, vehicula rhoncus nisl dui sit amet eros. Nulla turpis lorem, dignissim a sapien eget, ultrices venenatis dolor. Curabitur vel turpis at magna elementum hendrerit vel id dui. Curabitur a ex ullamcorper, ornare velit vel, tincidunt ipsum. "
-              )
-            ]
+            [_vm._v("Delivery Description")]
           ),
           _vm._v(" "),
           _c(
-            "div",
+            "a",
             {
-              staticClass: "tab-pane fade",
+              staticClass: "nav-item nav-link",
               attrs: {
-                id: "product-rating",
-                role: "tabpanel",
-                "aria-labelledby": "product-rating-tab"
+                id: "product-rating-tab",
+                "data-toggle": "tab",
+                href: "#product-rating",
+                role: "tab",
+                "aria-controls": "product-rating",
+                "aria-selected": "false"
               }
             },
-            [
-              _vm._v(
-                " Cras ut ipsum ornare, aliquam ipsum non, posuere elit. In hac habitasse platea dictumst. Aenean elementum leo augue, id fermentum risus efficitur vel. Nulla iaculis malesuada scelerisque. Praesent vel ipsum felis. Ut molestie, purus aliquam placerat sollicitudin, mi ligula euismod neque, non bibendum nibh neque et erat. Etiam dignissim aliquam ligula, aliquet feugiat nibh rhoncus ut. Aliquam efficitur lacinia lacinia. Morbi ac molestie lectus, vitae hendrerit nisl. Nullam metus odio, malesuada in vehicula at, consectetur nec justo. Quisque suscipit odio velit, at accumsan urna vestibulum a. Proin dictum, urna ut varius consectetur, sapien justo porta lectus, at mollis nisi orci et nulla. Donec pellentesque tortor vel nisl commodo ullamcorper. Donec varius massa at semper posuere. Integer finibus orci vitae vehicula placerat. "
-              )
-            ]
+            [_vm._v("Rating")]
           )
         ]
       )
@@ -83305,7 +83222,9 @@ var routes = [{
   component: __webpack_require__(/*! ./components/Home.vue */ "./resources/js/components/Home.vue")["default"]
 }, {
   path: '/details/:id',
-  component: __webpack_require__(/*! ./components/ProductDetails.vue */ "./resources/js/components/ProductDetails.vue")["default"]
+  component: __webpack_require__(/*! ./components/ProductDetails.vue */ "./resources/js/components/ProductDetails.vue")["default"],
+  name: 'details',
+  props: true
 }, {
   path: '/dashboard',
   component: __webpack_require__(/*! ./components/Dashboard.vue */ "./resources/js/components/Dashboard.vue")["default"]
@@ -83355,7 +83274,8 @@ var app = new Vue({
     newcat: null,
     cart: [],
     item: null,
-    total: 0
+    total: 0,
+    baseURL: 'http::/localhost:8081/'
   },
   methods: {
     searchit: _.debounce(function () {
