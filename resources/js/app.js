@@ -115,6 +115,7 @@ const app = new Vue({
         newcat: null,
         cart: [],
         item: null,
+        total: 0,
     },
     methods:{
         searchit: _.debounce(() => {
@@ -174,5 +175,15 @@ const app = new Vue({
         else{
             console.log('no cart found')
         }
+    },
+    computed: {
+        totalItem: function(){
+            let sum = 0;
+            for(let i = 0; i < this.cart.length; i++){
+              sum += (parseFloat(this.cart[i].price));
+            }
+      
+           return sum;
+         }
     }
   }).$mount('#app')

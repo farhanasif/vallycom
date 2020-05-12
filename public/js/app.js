@@ -82702,7 +82702,8 @@ var app = new Vue({
     cats: [],
     newcat: null,
     cart: [],
-    item: null
+    item: null,
+    total: 0
   },
   methods: {
     searchit: _.debounce(function () {
@@ -82752,6 +82753,17 @@ var app = new Vue({
       }
     } else {
       console.log('no cart found');
+    }
+  },
+  computed: {
+    totalItem: function totalItem() {
+      var sum = 0;
+
+      for (var i = 0; i < this.cart.length; i++) {
+        sum += parseFloat(this.cart[i].price);
+      }
+
+      return sum;
     }
   }
 }).$mount('#app');
