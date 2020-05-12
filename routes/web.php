@@ -11,12 +11,9 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Auth::routes();
 
 Route::get('/','VcomController@index');
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('{path}','HomeController@index')->where('search', '.*');
+Route::get('/details/{id}','VcomController@index');
+//Route::get('{path}','HomeController@index')->where('any', '.*');
+Route::get('/{vue_capture?}', 'HomeController@index')->where('vue_capture', '[\/\w\.-]*');

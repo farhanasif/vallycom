@@ -69,7 +69,7 @@
                         
                     })
                     $state.loaded();
-                }, 2000);
+                }, 1000);
             },
 
             getImage : function(){

@@ -58,6 +58,7 @@ Vue.use(InfiniteLoading);
 
 const routes = [
     { path: '/', component: require('./components/Home.vue').default },
+    { path: '/details/:id', component: require('./components/ProductDetails.vue').default },
     { path: '/dashboard', component: require('./components/Dashboard.vue').default },
     { path: '/developer', component: require('./components/Developer.vue').default },
     { path: '/profile', component: require('./components/Profile.vue').default },
@@ -140,12 +141,6 @@ const app = new Vue({
 
             this.cart.push(item);
             localStorage.setItem('cart', JSON.stringify(this.cart));
-            // let newcat = {
-            //     name: title
-            // }
-            // this.cats.push(newcat);
-            // localStorage.setItem('cats', JSON.stringify(this.cats));
-            // this.cart += 1;
         },
 
         removeCat(n){
