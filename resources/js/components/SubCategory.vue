@@ -307,7 +307,7 @@ export default {
       axios
         .get("api/findsubcategory?q=" + query)
         .then(data => {
-          this.categories = data.data;
+          this.subcategories = data.data;
         })
         .catch(() => {});
     });

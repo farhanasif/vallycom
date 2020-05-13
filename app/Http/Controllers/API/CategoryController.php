@@ -116,10 +116,10 @@ class CategoryController extends Controller
 
     public function search(){
 
-        if ($search = \Request::get('q')) {
+        if($search = \Request::get('q')) {
             $categories = Category::where(function($query) use ($search){
-                $query->where('categoryName','LIKE',"%$search%")
-                        ->orWhere('departmentId','LIKE',"%$search%");
+                $query->where('category_name','LIKE',"%$search%")
+                        ->orWhere('department_id','LIKE',"%$search%");
             })->paginate(20);
         }else{
             $categories = Category::latest()->paginate(5);

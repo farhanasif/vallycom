@@ -3822,7 +3822,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBP
     Fire.$on("searching", function () {
       var query = _this11.$parent.search;
       axios.get("api/findsubcategory?q=" + query).then(function (data) {
-        _this11.categories = data.data;
+        _this11.subcategories = data.data;
       })["catch"](function () {});
     });
     this.loadSubcategory();

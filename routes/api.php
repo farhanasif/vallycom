@@ -32,30 +32,23 @@ Route::get('findUser', 'API\UserController@search');
 Route::get('products','API\ProductController@index');
 
 
-//-------------Departments route----------------//
+//------------- Departments route ----------------//
 Route::get('department', 'API\DepartmentController@index');
 Route::post('store-department', 'API\DepartmentController@storeDepartment');
 Route::put('update-department/{id}', 'API\DepartmentController@updateDepartment');
 Route::get('findDepartment', 'API\DepartmentController@search');
 Route::delete('delete-department/{id}', 'API\DepartmentController@deleteDepartment');
 
-/********************* Category route **************************/
+
+//------------- Start Arif Khan ----------------//
+//------------- Category route ----------------//
+Route::get('findCategory', 'API\CategoryController@search');
 Route::get('getDepartment', 'API\CategoryController@getDepartment');
+//------------- Arif Khan ----------------//
 
-// Route::apiResources([
-
-// ]);
-
-Route::get('getDepartment', 'API\CategoryController@getDepartment');
-/**************************Arif Khan ****************************/
-
-/********************* SubCategory route **************************/
-Route::get('getDepartment', 'API\SubCategoryController@getDepartment');
-// Route::apiResources([
-
-// ]);
-
+//-------------SubCategory route ----------------//
+Route::get('findsubcategory', 'API\SubCategoryController@search');
 Route::get('getDepartment', 'API\SubCategoryController@getDepartment');
 Route::get('getCategory/{id}', 'API\SubCategoryController@getCategory');
-/**************************Arif Khan ****************************/
+//------------- End Arif Khan ----------------//
 
