@@ -36,9 +36,12 @@ Route::get('products','API\ProductController@index');
 Route::get('department', 'API\DepartmentController@index');
 Route::post('store-department', 'API\DepartmentController@storeDepartment');
 Route::put('update-department/{id}', 'API\DepartmentController@updateDepartment');
+Route::get('findDepartment', 'API\DepartmentController@search');
 Route::delete('delete-department/{id}', 'API\DepartmentController@deleteDepartment');
 
 /********************* Category route **************************/
+Route::get('getDepartment', 'API\CategoryController@getDepartment');
+
 // Route::apiResources([
 
 // ]);
@@ -47,6 +50,7 @@ Route::get('getDepartment', 'API\CategoryController@getDepartment');
 /**************************Arif Khan ****************************/
 
 /********************* SubCategory route **************************/
+Route::get('getDepartment', 'API\SubCategoryController@getDepartment');
 // Route::apiResources([
 
 // ]);

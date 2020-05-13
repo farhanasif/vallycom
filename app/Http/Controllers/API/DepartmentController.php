@@ -87,6 +87,19 @@ class DepartmentController extends Controller
         return ['message' => 'Updated the Department info'];
     }
 
+    public function search(){
+
+        if ($search = \Request::get('q')) {
+            $department = Department::where(function($query) use ($search){
+                $query->where('department_name','LIKE',"%$search%");
+            })->paginate(20);
+        }else{
+            $department = Department::latest()->paginate(5);
+        }
+
+        return $department;
+    }
+
     public function deleteDepartment($id)
     {
         // $this->authorize('isAdmin');
