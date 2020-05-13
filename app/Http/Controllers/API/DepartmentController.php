@@ -50,43 +50,41 @@ class DepartmentController extends Controller
         $department = Department::findOrFail($id);
 
         $this->validate($request,[
-            'department_name' => 'required|string|max:191',
-            // 'photo' => 'required|mimes:jpeg,jpg,png'
+            'department_name' => 'required',
         ]);
 
         $currentPhoto = $department->photo;
 
-
-        if($request->photo != $currentPhoto){
+        if($request->photo != null){
             $exploded = explode(',',$request->photo);
 
             $decoded = base64_decode($exploded[1]);
 
             if (str_contains($exploded[0],'jpeg')) {
-               $extention = 'jpg';
+                $extention = 'jpg';
             }else{
                 $extention = 'png';
             }
 
-            $fileName = str_random().'.'.$extention;
-
-            $path = public_path().'/img/master/'.$fileName;
-            file_put_contents($path, $decoded);
-            $file = '/img/master/'.$fileName;
-
-            if(file_exists($path)){
-                @unlink($file);
+            $name = str_random().'.'.$extention;
+            if($currentPhoto == null) {
+                $departmentPhoto = public_path().'/img/master/'.$name;
+                file_put_contents($departmentPhoto, $decoded);
+                $file = '/img/master/'.$name;
+            }else {
+                $departmentPhoto = public_path('').$currentPhoto;
+                file_put_contents($departmentPhoto, $decoded);
+                $file = '/img/master/'.$name;
             }
 
+            \Image::make($request->photo)->save(public_path('/').$file);
+            $request->merge(['photo' => $file]);
+            if(file_exists($departmentPhoto)){
+                @unlink($file);
+            }
         }
-
-        $department->update([
-            'department_name' => $request['department_name'],
-            'photo' =>$file
-        ]);
-
-        // $department->update($request->all());
-        return ['message' => 'Updated the department info'];
+        $department->update($request->all());
+        return ['message' => 'Updated the Department info'];
     }
 
     public function deleteDepartment($id)

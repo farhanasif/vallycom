@@ -54,4 +54,4 @@ Route::get('getDepartment', 'API\CategoryController@getDepartment');
 Route::get('getDepartment', 'API\SubCategoryController@getDepartment');
 Route::get('getCategory/{id}', 'API\SubCategoryController@getCategory');
 /**************************Arif Khan ****************************/
-/**************************Arif Khan ****************************/
+
