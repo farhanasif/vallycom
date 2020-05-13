@@ -89,6 +89,10 @@ const routes = [{
         component: require('./components/Category.vue').default
     },
     {
+        path: '/subcategories',
+        component: require('./components/SubCategory.vue').default
+    },
+    {
         path: '*',
         component: require('./components/404.vue').default
     }

@@ -19,7 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResources([
-    'user' => 'API\UserController'
+    'user' => 'API\UserController',
+    'category' => 'API\CategoryController',
+    'subcategory' => 'API\SubCategoryController'
+
 ]);
 
 Route::get('profile', 'API\UserController@profile');
@@ -37,9 +40,18 @@ Route::post('update-department/{id}', 'API\DepartmentController@updateDepartment
 Route::delete('delete-department/{id}', 'API\DepartmentController@deleteDepartment');
 
 /********************* Category route **************************/ 
-Route::apiResources([
-    'category' => 'API\CategoryController'
-]);
+// Route::apiResources([
+    
+// ]);
 
 Route::get('getDepartment', 'API\CategoryController@getDepartment');
+/**************************Arif Khan ****************************/
+
+/********************* SubCategory route **************************/ 
+// Route::apiResources([
+    
+// ]);
+
+Route::get('getDepartment', 'API\SubCategoryController@getDepartment');
+Route::get('getCategory/{id}', 'API\SubCategoryController@getCategory');
 /**************************Arif Khan ****************************/

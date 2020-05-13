@@ -4,11 +4,11 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">All Categories</h3>
+            <h3 class="card-title">All Sub Categories</h3>
 
             <div class="card-tools">
               <button class="btn btn-success" @click="newModal">
-                Add New Category
+                Add New SubCategory
                 <i class="fas fa-list-alt fa-fw"></i>
               </button>
             </div>
@@ -21,26 +21,31 @@
                   <th>ID</th>
                   <th>Department Name</th>
                   <th>Category Name</th>
+                  <th>SubCategory Name</th>
                   <th>Image</th>
                   <th>Created At</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="category in categories.data" :key="category.category_id">
-                  <td>{{category.category_id}}</td>
-                  <td>{{category.department_name}}</td>
-                  <td>{{category.category_name}}</td>
+                <tr v-for="subcategory in subcategories.data" :key="subcategory.subcategory_id">
+                  <td>{{subcategory.subcategory_id}}</td>
+                  <td>{{subcategory.department_name}}</td>
+                  <td>{{subcategory.category_name}}</td>
+                  <td>{{subcategory.subcategory_name}}</td>
                   <td>
-                    <img style="width:40px; height:40px" :src="category.photo" alt="image" />
+                    <img style="width:40px; height:40px" :src="subcategory.photo" alt="image" />
                   </td>
-                  <td>{{category.created_at | myDate}}</td>
+                  <td>{{subcategory.created_at | myDate}}</td>
                   <td>
-                    <a href="#" @click="editModal(category)">
+                    <a href="#" @click="editModal(subcategory)">
                       <i class="fas fa-edit blue"></i>
                     </a>
                     |
-                    <a href="#" @click="deleteCategory(category.category_id)">
+                    <a
+                      href="#"
+                      @click="deleteSubcategory(subcategory.subcategory_id)"
+                    >
                       <i class="fas fa-trash red"></i>
                     </a>
                   </td>
@@ -50,7 +55,7 @@
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
-            <pagination :data="categories" @pagination-change-page="getResults"></pagination>
+            <pagination :data="subcategories" @pagination-change-page="getResults"></pagination>
           </div>
         </div>
       </div>
@@ -61,18 +66,18 @@
     <!-- Modal -->
     <div
       class="modal fade"
-      id="categoryModal"
+      id="subcategoryModal"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="categoryModalLabel"
+      aria-labelledby="subcategoryModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog" role="document">
-        <form @submit.prevent="editmode ? updateCategory() : createCategory()">
+        <form @submit.prevent="editmode ? updateSubcategory() : createSubcategory()">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" v-show="!editmode" id="addNewLabel">Add New Category</h5>
-              <h5 class="modal-title" v-show="editmode" id="addNewLabel">Update category Info</h5>
+              <h5 class="modal-title" v-show="!editmode" id="addNewLabel">Add New SubCategory</h5>
+              <h5 class="modal-title" v-show="editmode" id="addNewLabel">Update SubCategory Info</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -86,6 +91,7 @@
                   id="department_id"
                   class="form-control"
                   :class="{ 'is-invalid': form.errors.has('text') }"
+                  @click="loadGetCategory(form.department_id)"
                 >
                   <option value>-- select Department --</option>
                   <option
@@ -97,16 +103,37 @@
                 </select>
                 <has-error :form="form" field="department_id"></has-error>
               </div>
+
               <div class="form-group">
-                <label>Category Name</label>
-                <input
-                  v-model="form.category_name"
-                  type="text"
-                  name="category_name"
+                <label>Select Category Name</label>
+                <select
+                  name="category_id"
+                  v-model="form.category_id"
+                  id="category_id"
                   class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('category_name') }"
+                  :class="{ 'is-invalid': form.errors.has('text') }"
+                >
+                  <option value>-- select category --</option>
+                  <option
+                    v-for="category in categories"
+                    :key="category.id"
+                    v-bind:value="category.id"
+                    v-text="category.category_name"
+                  ></option>
+                </select>
+                <has-error :form="form" field="category_id"></has-error>
+              </div>
+
+              <div class="form-group">
+                <label>SubCategory Name</label>
+                <input
+                  v-model="form.subcategory_name"
+                  type="text"
+                  name="subcategory_name"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('subcategory_name') }"
                 />
-                <has-error :form="form" field="categoryName"></has-error>
+                <has-error :form="form" field="subcategoryName"></has-error>
               </div>
               <div class="form-group">
                 <label>Photo</label>
@@ -135,39 +162,41 @@ export default {
   data() {
     return {
       editmode: false,
+      subcategories: {},
       categories: {},
       departments: {},
       form: new Form({
-        category_id: "",
+        subcategory_id: "",
         department_id: "",
-        category_name: "",
+        category_id: "",
+        subcategory_name: "",
         photo: ""
       })
     };
   },
   methods: {
     getResults(page = 1) {
-      axios.get("api/category?page=" + page).then(response => {
-        this.categories = response.data;
+      axios.get("api/subcategory?page=" + page).then(response => {
+        this.subcategories = response.data;
       });
     },
 
     newModal() {
       this.editmode = false;
       this.form.reset();
-      $("#categoryModal").modal("show");
+      $("#subcategoryModal").modal("show");
     },
-    editModal(category) {
+    editModal(subcategory) {
       this.editmode = true;
       this.form.reset();
-      $("#categoryModal").modal("show");
-      this.form.fill(category);
+      $("#subcategoryModal").modal("show");
+      this.form.fill(subcategory);
     },
-    loadCategory() {
+    loadSubcategory() {
       //load usrs
       if (this.$gate.isAdminOrAuthor()) {
-        axios.get("api/category").then(({ data }) => {
-          this.categories = data;
+        axios.get("api/subcategory").then(({ data }) => {
+          this.subcategories = data;
         });
       }
     },
@@ -179,12 +208,21 @@ export default {
         });
       }
     },
-    createCategory() {
+    loadGetCategory(id) {
+      //load usrs
+      if (this.$gate.isAdminOrAuthor()) {
+        console.log(14);
+        axios.get("api/getCategory/" + id).then(({ data }) => {
+          this.categories = data;
+        });
+      }
+    },
+    createSubcategory() {
       this.form
-        .post("api/category")
+        .post("api/subcategory")
         .then(() => {
           Fire.$emit("AfterCreate");
-          $("#categoryModal").modal("hide");
+          $("#subcategoryModal").modal("hide");
 
           this.$swal({
             toast: true,
@@ -192,21 +230,21 @@ export default {
             showConfirmButton: false,
             timer: 3000,
             icon: "success",
-            title: "Category",
+            title: "Subcategory",
             text: "created successfully!"
           });
           this.$Progress.finish();
         })
         .catch(() => {});
     },
-    updateCategory() {
+    updateSubcategory() {
       this.$Progress.start();
 
       this.form
-        .put("api/category/" + this.form.category_id)
+        .put("api/subcategory/" + this.form.subcategory_id)
         .then(() => {
           // success
-          $("#categoryModal").modal("hide");
+          $("#subcategoryModal").modal("hide");
           swal.fire("Updated!", "Information has been updated.", "success");
           this.$Progress.finish();
           Fire.$emit("AfterCreate");
@@ -215,7 +253,7 @@ export default {
           this.$Progress.fail();
         });
     },
-    deleteCategory(id) {
+    deleteSubcategory(id) {
       swal
         .fire({
           title: "Are you sure?",
@@ -230,7 +268,7 @@ export default {
           // Send request to the server
           if (result.value) {
             this.form
-              .delete("api/category/" + id)
+              .delete("api/subcategory/" + id)
               .then(() => {
                 swal.fire({
                   icon: "success",
@@ -251,6 +289,11 @@ export default {
         this.departments = response.data.departments;
       });
     },
+    getCategory(id) {
+      axios.get("api/getCategory/" + id).then(response => {
+        this.categories = response.data.categories;
+      });
+    },
     photoUp(e) {
       var filereader = new FileReader();
       filereader.readAsDataURL(e.target.files[0]);
@@ -267,18 +310,20 @@ export default {
     Fire.$on("searching", () => {
       let query = this.$parent.search;
       axios
-        .get("api/findCategory?q=" + query)
+        .get("api/findsubcategory?q=" + query)
         .then(data => {
           this.categories = data.data;
         })
         .catch(() => {});
     });
-    this.loadCategory();
+    this.loadSubcategory();
     this.loadGetDepartment();
-    //setInterval(() => this.loadCategory(), 15000);
+    // this.loadGetCategory();
+    //setInterval(() => this.loadsubcategory(), 15000);
     Fire.$on("AfterCreate", () => {
-      this.loadCategory();
+      this.loadSubcategory();
       this.loadGetDepartment();
+      //   this.loadGetCategory();
     });
   }
 };

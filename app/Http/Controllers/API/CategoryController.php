@@ -86,7 +86,7 @@ class CategoryController extends Controller
             // \Image::make($request->photo)->save(public_path('/').'/img/master/category/'.$name);
             // $request->merge(['photo' => $name]);
 
-            $categoryPhoto = public_path('/').'/img/master/category/'.$currentPhoto;
+            $categoryPhoto = public_path('/').$currentPhoto;
             file_put_contents($categoryPhoto, $decoded);
             $file = '/img/master/category/'.$name;
             \Image::make($request->photo)->save(public_path('/').$file);
