@@ -11,12 +11,16 @@ class DepartmentController extends Controller
 {
     public function index()
     {
-        return Department::latest()->paginate(8);
+        return Department::latest()->paginate(5);
     //    dd($department);
     }
 
     public function storeDepartment(Request $request)
     {
+
+        $this->validate($request,[
+            'department_name' => 'required',
+        ]);
 
             $exploded = explode(',',$request->photo);
 
@@ -30,9 +34,9 @@ class DepartmentController extends Controller
 
             $fileName = str_random().'.'.$extention;
 
-            $path = public_path().'/img/master'.$fileName;
+            $path = public_path().'/img/master/'.$fileName;
             file_put_contents($path, $decoded);
-            $file = '/img/master'.$fileName;
+            $file = '/img/master/'.$fileName;
 
 
         return Department::create([
@@ -40,13 +44,6 @@ class DepartmentController extends Controller
             'photo' => $file,
         ]);
     }
-
-    // public function editDepartment($id)
-    // {
-    //     // return Department::findOrFail($id);
-
-    //     dd(Department::findOrFail($id));
-    // }
 
     public function updateDepartment(Request $request,$id)
     {
@@ -61,24 +58,34 @@ class DepartmentController extends Controller
 
 
         if($request->photo != $currentPhoto){
-            $name = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
+            $exploded = explode(',',$request->photo);
 
-            \Image::make($request->photo)->save(public_path('/').$name);
-            $request->merge(['photo' => $name]);
+            $decoded = base64_decode($exploded[1]);
 
-            $departmentPhoto = public_path('/').$currentPhoto;
-            $updatephoto = '/'.$currentPhoto;
-            if(file_exists($departmentPhoto)){
-                @unlink($departmentPhoto);
+            if (str_contains($exploded[0],'jpeg')) {
+               $extention = 'jpg';
+            }else{
+                $extention = 'png';
+            }
+
+            $fileName = str_random().'.'.$extention;
+
+            $path = public_path().'/img/master/'.$fileName;
+            file_put_contents($path, $decoded);
+            $file = '/img/master/'.$fileName;
+
+            if(file_exists($path)){
+                @unlink($file);
             }
 
         }
-        // $department = Department::findOrFail($id);
-        // $department->department_name = $request->department_name;
-        // $department->photo = $updatephoto;
-        // $department->save;
 
-        $department->update($request->all());
+        $department->update([
+            'department_name' => $request['department_name'],
+            'photo' =>$file
+        ]);
+
+        // $department->update($request->all());
         return ['message' => 'Updated the department info'];
     }
 

@@ -20,3 +20,6 @@ Auth::routes();
 Route::get('/','VcomController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('{path}','HomeController@index')->where('search', '.*');
+
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');

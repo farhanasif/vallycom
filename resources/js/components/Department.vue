@@ -21,6 +21,7 @@
                                 <th>ID</th>
                                 <th>Department Name</th>
                                 <th>Photo</th>
+                                <th>Created At</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -28,7 +29,8 @@
                             <tr v-for="department in departments.data" :key="department.id">
                                 <td>{{department.id}}</td>
                                 <td>{{department.department_name}}</td>
-                                <td><img style="width:100px; height:100px" :src="department.photo" alt="image" /></td>
+                                <td><img style="width:50px; height:50px" :src="department.photo" alt="image" /></td>
+                                <td>{{department.created_at | myDate}}</td>
                                 <td>
                                     <a href="#" @click="editModal(department)">
                                         <i class="fas fa-edit blue"></i>
