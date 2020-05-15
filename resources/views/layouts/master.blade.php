@@ -158,31 +158,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <router-link to="/users" class="nav-link">
-                  <i class="fas fa-users-cog nav-icon teal"></i>
-                  <p>Department</p>
-                </router-link>
+                  <router-link to="/department" class="nav-link">
+                    <i class="fas fa-users-cog nav-icon teal"></i>
+                    <p>Department</p>
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="/categories" class="nav-link">
+                    <i class="fas fa-code-branch nav-icon teal"></i>
+                    <p>Category</p>
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="/subcategories" class="nav-link">
+                    <i class="fas fa-check nav-icon teal"></i>
+                    <p>Sub-category</p>
+                  </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/users" class="nav-link">
-                  <i class="fas fa-code-branch nav-icon teal"></i>
-                  <p>Category</p>
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link to="/users" class="nav-link">
-                  <i class="fas fa-check nav-icon teal"></i>
-                  <p>Sub-category</p>
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link to="/users" class="nav-link">
+                <router-link to="/sliders" class="nav-link">
                   <i class="fas fa-clone nav-icon teal"></i>
                   <p>Home Sliders</p>
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/users" class="nav-link">
+                <router-link to="/general" class="nav-link">
                   <i class="fas fa-cog nav-icon teal"></i>
                   <p>General Settings</p>
                 </router-link>
