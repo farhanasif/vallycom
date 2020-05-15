@@ -13,6 +13,8 @@
 Route::get('/','VcomController@index');
 Route::get('/details/{id}','VcomController@index');
 Auth::routes();
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
 
 //Route::get('{path}','HomeController@index')->where('any', '.*');
