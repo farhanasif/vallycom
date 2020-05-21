@@ -27,7 +27,6 @@ window.toast = toast;
 import Gate from "./Gate";
 Vue.prototype.$gate = new Gate(window.user);
 
-
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 const swalOptions = {

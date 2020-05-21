@@ -3040,8 +3040,8 @@ __webpack_require__.r(__webpack_exports__);
           }
         }).then(function (_ref) {
           var data = _ref.data;
-          console.log(data);
 
+          //console.log(data);
           if (data.data.length) {
             _this.page += 1;
 

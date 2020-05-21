@@ -58,7 +58,7 @@
                             page: this.page,
                         },
                     }).then(({ data }) => {
-                        console.log(data);
+                        //console.log(data);
                         if (data.data.length) {
                             this.page += 1;
                             for(let i = 0; i<data.data.length; i++){
