@@ -326,13 +326,52 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </p>
               </a>
               <ul class="nav nav-treeview">
+              @foreach ($departments as $department)
                 <li class="nav-item">
                   <router-link to="/" class="nav-link">
                     <i class="fas fa-angle-right nav-icon white"></i>
-                    <p>Electronics</p>
+                    <p> {{ $department->department_name }} </p>
                   </router-link>
                 </li>
-
+              @endforeach
+              </ul>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-copy purple"></i>
+                <p>
+                  Categories
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+              @foreach ($categories as $category)
+                <li class="nav-item">
+                  <router-link to="/" class="nav-link">
+                    <i class="fas fa-angle-right nav-icon white"></i>
+                    <p> {{ $category->category_name }} </p>
+                  </router-link>
+                </li>
+              @endforeach
+              </ul>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-copy pink"></i>
+                <p>
+                  SubCategories
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+              @foreach ($subCategories as $subCategory)
+                <li class="nav-item">
+                  <router-link to="/" class="nav-link">
+                    <i class="fas fa-angle-right nav-icon white"></i>
+                    <p> {{ $subCategory->subcategory_name }} </p>
+                  </router-link>
+                </li>
+              @endforeach
               </ul>
             </li>
             <li class="nav-item">
