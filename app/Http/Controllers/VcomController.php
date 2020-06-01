@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Department;
+use App\Category;
+use App\SubCategory;
 
 class VcomController extends Controller
 {
@@ -14,6 +17,9 @@ class VcomController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $departments = Department::get();
+        $categories = Category::get();
+        $subCategories = SubCategory::get();
+        return view('home',compact('departments','categories','subCategories'));
     }
 }
